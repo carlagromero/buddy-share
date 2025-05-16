@@ -30,10 +30,12 @@ const PreviewShareView: React.FC = () => {
   const ticketsBySection = selectedTicketObjects.reduce<
     Record<string, typeof selectedTicketObjects>
   >((acc, ticket) => {
-    if (!acc[ticket.section]) {
-      acc[ticket.section] = [];
+    if (Object.keys(assignments).includes(ticket.id)) {
+      if (!acc[ticket.section]) {
+        acc[ticket.section] = [];
+      }
+      acc[ticket.section].push(ticket);
     }
-    acc[ticket.section].push(ticket);
     return acc;
   }, {});
 
