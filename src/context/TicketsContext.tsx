@@ -25,6 +25,7 @@ interface TicketsContextType {
   getTicketsForEvent: (eventId: string) => Ticket[];
   getBuddyById: (buddyId: string) => Buddy | undefined;
   completeShare: () => void;
+  resetState: () => void;
 }
 
 const TicketsContext = createContext<TicketsContextType | undefined>(undefined);
@@ -89,6 +90,13 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
     return buddies.find((buddy) => buddy.id === buddyId);
   };
 
+  const resetState = () => {
+    setSelectedEventId(null);
+    setSelectedTickets([]);
+    setAssignments({});
+    setMessage("");
+  };
+
   const completeShare = () => {
     // In a real app, this would handle the API call to share tickets
     console.log("Sharing tickets:", {
@@ -99,9 +107,7 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
     });
 
     // Reset state after sharing
-    setSelectedTickets([]);
-    setAssignments({});
-    setMessage("");
+    resetState();
   };
 
   return (
@@ -124,6 +130,7 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
         getTicketsForEvent,
         getBuddyById,
         completeShare,
+        resetState,
       }}
     >
       {children}

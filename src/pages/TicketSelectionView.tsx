@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { ArrowRight, Users } from "lucide-react";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { ArrowRight, Ticket, Users } from "lucide-react";
 import TicketItem from "../components/TicketItem";
 import { useTickets } from "../context/TicketsContext";
 
 const TicketSelectionView: React.FC = () => {
   const { eventId } = useParams<{ eventId: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const {
     events,
     setSelectedEventId,
@@ -14,7 +15,6 @@ const TicketSelectionView: React.FC = () => {
     buddies,
     assignTicket,
     assignments,
-    // getBuddyById
   } = useTickets();
 
   const [selectedBuddyId, setSelectedBuddyId] = useState<string | null>(null);
@@ -39,6 +39,17 @@ const TicketSelectionView: React.FC = () => {
       setSelectedEventId(eventId);
     }
   }, [eventId, setSelectedEventId]);
+
+  useEffect(() => {
+    navigate(location.pathname, {
+      replace: true,
+      state: {
+        ...location.state,
+        fromAssignComplete: Object.keys(assignments).length > 0,
+      },
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [assignments]);
 
   const handleBuddyClick = (buddyId: string) => {
     setSelectedBuddyId(buddyId === selectedBuddyId ? null : buddyId);
@@ -130,7 +141,10 @@ const TicketSelectionView: React.FC = () => {
 
       {/* Tickets Section */}
       <div className="mb-8">
-        <h3 className="font-medium text-lg mb-4">Available Tickets</h3>
+        <div className="flex items-center mb-4">
+          <Ticket size={20} className="text-gray-500 mr-2" />
+          <h3 className="font-medium text-lg">Available Tickets</h3>
+        </div>
         {Object.entries(ticketsBySection).map(([section, sectionTickets]) => (
           <div key={section} className="mb-8">
             <h4 className="font-medium mb-3">Section {section}</h4>

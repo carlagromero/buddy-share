@@ -3,7 +3,11 @@ import EventCard from "../components/EventCard";
 import { useTickets } from "../context/TicketsContext";
 
 const EventsListView: React.FC = () => {
-  const { events } = useTickets();
+  const { events, resetState } = useTickets();
+
+  React.useEffect(() => {
+    resetState();
+  }, [resetState]);
 
   return (
     <div>

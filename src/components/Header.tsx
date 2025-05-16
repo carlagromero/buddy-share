@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { Users, ArrowLeft, ChevronDown } from "lucide-react";
 
 const Header: React.FC = () => {
   const location = useLocation();
+  const { eventId } = useParams<{ eventId: string }>();
   const isHome = location.pathname === "/" || location.pathname === "/contacts";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const assignComplete = location.state?.fromAssignComplete || false;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -94,11 +96,7 @@ const Header: React.FC = () => {
                   Events
                 </Link>
                 <Link
-                  to={
-                    location.pathname.includes("/tickets/")
-                      ? location.pathname
-                      : "#"
-                  }
+                  to={`/tickets/${eventId}`}
                   className={`px-3 py-1 rounded-md ${
                     location.pathname.includes("/tickets/")
                       ? "bg-white text-green-900"
@@ -108,15 +106,13 @@ const Header: React.FC = () => {
                   Assign
                 </Link>
                 <Link
-                  to={
-                    location.pathname.includes("/preview/")
-                      ? location.pathname
-                      : "#"
-                  }
+                  to={`/preview/${eventId}`}
                   className={`px-3 py-1 rounded-md ${
                     location.pathname.includes("/preview/")
                       ? "bg-white text-green-900"
-                      : "text-green-100 hover:bg-green-700"
+                      : assignComplete
+                      ? "text-green-100 hover:bg-green-700"
+                      : "text-gray-400 cursor-not-allowed pointer-events-none"
                   }`}
                 >
                   Share
