@@ -15,8 +15,11 @@ const TicketSelectionView: React.FC = () => {
     buddies,
     assignTicket,
     assignments,
+    groups,
+    resetState,
   } = useTickets();
 
+  const [modeView, setModeView] = useState<"groups" | "individuals">("groups");
   const [selectedBuddyId, setSelectedBuddyId] = useState<string | null>(null);
 
   const event = events.find((e) => e.id === eventId);
@@ -48,7 +51,7 @@ const TicketSelectionView: React.FC = () => {
         fromAssignComplete: Object.keys(assignments).length > 0,
       },
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [assignments]);
 
   const handleBuddyClick = (buddyId: string) => {
@@ -84,59 +87,113 @@ const TicketSelectionView: React.FC = () => {
           {event.team} vs. {event.opponent}
         </h2>
         <p className="text-gray-600">
-          Select a contact and assign them a ticket
+          Select a{" "}
+          <span className="font-semibold">
+            {modeView === "groups" ? "group" : "contact"}
+          </span>{" "}
+          and assign them a ticket
         </p>
+        <div className="flex items-center mt-4">
+          <button
+            onClick={() => {
+              setModeView((prevState) =>
+                prevState === "groups" ? "individuals" : "groups"
+              );
+              resetState();
+            }}
+            className="relative inline-flex h-12 w-48 items-center rounded-md border border-gray-300 bg-white p-1"
+          >
+            <span
+              className={`flex h-full w-1/2 cursor-pointer items-center justify-center rounded-l-md font-medium transition-colors ${
+                modeView === "groups"
+                  ? "bg-green-600 text-white"
+                  : "text-gray-700"
+              }`}
+            >
+              Groups
+            </span>
+
+            <span
+              className={`flex h-full w-1/2 cursor-pointer items-center justify-center rounded-r-md font-medium transition-colors ${
+                modeView === "groups"
+                  ? "text-gray-700"
+                  : "bg-green-600 text-white"
+              }`}
+            >
+              Individuals
+            </span>
+          </button>
+        </div>
       </div>
 
       {/* Contacts Section */}
       <div className="mb-8">
-        <div className="flex items-center mb-4">
-          <Users size={20} className="text-gray-500 mr-2" />
-          <h3 className="font-medium text-lg">Select a Contact</h3>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {buddies.map((buddy) => {
-            const hasTicket = Object.values(assignments).includes(buddy.id);
-            const assignedTicketId = Object.entries(assignments).find(
-              ([, id]) => id === buddy.id
-            )?.[0];
-            const assignedTicket = assignedTicketId
-              ? tickets.find((t) => t.id === assignedTicketId)
-              : undefined;
-
-            return (
+        {modeView === "groups" ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {groups.map((group) => (
               <button
-                key={buddy.id}
-                onClick={() => handleBuddyClick(buddy.id)}
+                key={group.id}
+                onClick={() => handleBuddyClick(group.id)}
                 className={`flex items-center p-3 rounded-lg border transition-all ${
-                  selectedBuddyId === buddy.id
+                  selectedBuddyId === group.id
                     ? "border-green-500 bg-green-50"
                     : "border-gray-200 hover:border-gray-300 bg-white"
                 }`}
               >
-                <img
-                  src={buddy.avatar}
-                  alt={buddy.name}
-                  className="w-10 h-10 rounded-full object-cover"
-                />
+                <Users size={30} className="text-gray-500" />
                 <div className="ml-3 text-left">
-                  <h4 className="font-medium text-gray-800">{buddy.name}</h4>
-                  {hasTicket && assignedTicket ? (
-                    <p className="text-sm text-green-600">
-                      Section {assignedTicket.section}, Seat{" "}
-                      {assignedTicket.seat}
-                    </p>
-                  ) : (
-                    <p className="text-sm text-gray-500">
-                      {buddy.relationship}
-                    </p>
-                  )}
+                  <h4 className="font-medium text-gray-800">{group.name}</h4>
+                  <p className="text-sm text-gray-500">
+                    {group.buddies.length} members
+                  </p>
                 </div>
               </button>
-            );
-          })}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {buddies.map((buddy) => {
+              const hasTicket = Object.values(assignments).includes(buddy.id);
+              const assignedTicketId = Object.entries(assignments).find(
+                ([, id]) => id === buddy.id
+              )?.[0];
+              const assignedTicket = assignedTicketId
+                ? tickets.find((t) => t.id === assignedTicketId)
+                : undefined;
+
+              return (
+                <button
+                  key={buddy.id}
+                  onClick={() => handleBuddyClick(buddy.id)}
+                  className={`flex items-center p-3 rounded-lg border transition-all ${
+                    selectedBuddyId === buddy.id
+                      ? "border-green-500 bg-green-50"
+                      : "border-gray-200 hover:border-gray-300 bg-white"
+                  }`}
+                >
+                  <img
+                    src={buddy.avatar}
+                    alt={buddy.name}
+                    className="w-10 h-10 rounded-full object-cover"
+                  />
+                  <div className="ml-3 text-left">
+                    <h4 className="font-medium text-gray-800">{buddy.name}</h4>
+                    {hasTicket && assignedTicket ? (
+                      <p className="text-sm text-green-600">
+                        Section {assignedTicket.section}, Seat{" "}
+                        {assignedTicket.seat}
+                      </p>
+                    ) : (
+                      <p className="text-sm text-gray-500">
+                        {buddy.relationship}
+                      </p>
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* Tickets Section */}
@@ -151,7 +208,6 @@ const TicketSelectionView: React.FC = () => {
             <div className="bg-white rounded-lg shadow-sm p-4">
               {sectionTickets.map((ticket) => {
                 const isAssigned = assignments[ticket.id];
-                // const assignedBuddy = isAssigned ? getBuddyById(assignments[ticket.id]) : undefined;
 
                 return (
                   <div

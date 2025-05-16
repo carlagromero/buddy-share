@@ -34,8 +34,8 @@ export const mockTickets: Ticket[] = [
   // Eagles vs Falcons
   { id: '101', eventId: '1', section: '122', row: '15', seat: '7' },
   { id: '102', eventId: '1', section: '122', row: '15', seat: '8' },
-  { id: '103', eventId: '1', section: '122', row: '15', seat: '9' },
-  { id: '104', eventId: '1', section: '122', row: '15', seat: '10' },
+  { id: '103', eventId: '1', section: '123', row: '15', seat: '9' },
+  { id: '104', eventId: '1', section: '123', row: '15', seat: '10' },
   
   // Eagles vs Cowboys
   { id: '201', eventId: '2', section: '134', row: '22', seat: '5' },
@@ -67,12 +67,12 @@ export const mockBuddies: Buddy[] = [
     relationship: 'Friend',
     avatar: 'https://randomuser.me/api/portraits/men/67.jpg',
   },
-  {
-    id: '4',
-    name: 'Taylor',
-    relationship: 'Coworker',
-    avatar: 'https://randomuser.me/api/portraits/women/23.jpg',
-  },
+  // {
+  //   id: '4',
+  //   name: 'Taylor',
+  //   relationship: 'Coworker',
+  //   avatar: 'https://randomuser.me/api/portraits/women/23.jpg',
+  // },
   {
     id: '5',
     name: 'Jordan',
@@ -92,9 +92,9 @@ export const mockGroups: Group[] = [
     name: 'Friends',
     buddies: ['3', '5']
   },
-  {
-    id: '3',
-    name: 'Work',
-    buddies: ['4']
-  }
+  // {
+  //   id: '3',
+  //   name: 'Work',
+  //   buddies: ['4']
+  // }
 ];
