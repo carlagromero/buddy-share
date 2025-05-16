@@ -21,6 +21,7 @@ interface TicketsContextType {
   assignTicket: (ticketId: string, buddyId: string) => void;
   autoAssignTickets: () => void;
   clearAssignments: () => void;
+  clearGroupAssignments: (groupId: string) => void;
   setMessage: (message: string) => void;
   getTicketsForEvent: (eventId: string) => Ticket[];
   getBuddyById: (buddyId: string) => Buddy | undefined;
@@ -82,6 +83,19 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
     setAssignments({});
   };
 
+  const clearGroupAssignments = (groupId: string) => {
+    setAssignments((prevState) => ({
+      ...Object.fromEntries(
+        Object.entries(prevState).filter(
+          ([, buddy]) =>
+            !groups
+              .find((group) => group.id === groupId)
+              ?.buddies.includes(buddy)
+        )
+      ),
+    }));
+  };
+
   const getTicketsForEvent = (eventId: string) => {
     return tickets.filter((ticket) => ticket.eventId === eventId);
   };
@@ -126,6 +140,7 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
         assignTicket,
         autoAssignTickets,
         clearAssignments,
+        clearGroupAssignments,
         setMessage,
         getTicketsForEvent,
         getBuddyById,

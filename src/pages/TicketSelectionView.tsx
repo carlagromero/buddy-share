@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { ArrowRight, Ticket, Users } from "lucide-react";
+import { ArrowRight, Ticket, Undo, Users } from "lucide-react";
 import TicketItem from "../components/TicketItem";
 import { useTickets } from "../context/TicketsContext";
 
@@ -17,6 +17,7 @@ const TicketSelectionView: React.FC = () => {
     assignments,
     groups,
     resetState,
+    clearGroupAssignments,
   } = useTickets();
 
   const [modeView, setModeView] = useState<"groups" | "individuals">("groups");
@@ -153,7 +154,7 @@ const TicketSelectionView: React.FC = () => {
               <button
                 key={group.id}
                 onClick={() => handleBuddyClick(group.id)}
-                className={`flex items-center p-3 rounded-lg border transition-all ${
+                className={`flex items-center p-3 rounded-lg border transition-all relative ${
                   selectedBuddyId === group.id ||
                   (selectedGroupId === group.id && groupBuddies.length > 0)
                     ? "border-green-500 bg-green-50"
@@ -167,6 +168,22 @@ const TicketSelectionView: React.FC = () => {
                     {group.buddies.length} members
                   </p>
                 </div>
+                {group.buddies.some((id) =>
+                  Object.values(assignments).includes(id)
+                ) && (
+                  <>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        clearGroupAssignments(group.id);
+                      }}
+                      className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+                      aria-label="Clear selection"
+                    >
+                      <Undo size={20} />
+                    </button>
+                  </>
+                )}
               </button>
             ))}
           </div>
