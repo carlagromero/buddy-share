@@ -21,6 +21,8 @@ const TicketSelectionView: React.FC = () => {
 
   const [modeView, setModeView] = useState<"groups" | "individuals">("groups");
   const [selectedBuddyId, setSelectedBuddyId] = useState<string | null>(null);
+  const [selectedGroupId, setSelectedGroupId] = useState<string | null>(null);
+  const [groupBuddies, setGroupBuddies] = useState<string[]>([]);
 
   const event = events.find((e) => e.id === eventId);
   const tickets = eventId ? getTicketsForEvent(eventId) : [];
@@ -54,20 +56,37 @@ const TicketSelectionView: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [assignments]);
 
-  const handleBuddyClick = (buddyId: string) => {
-    setSelectedBuddyId(buddyId === selectedBuddyId ? null : buddyId);
+  const handleBuddyClick = (id: string) => {
+    if (modeView === "groups") {
+      setSelectedGroupId(id === selectedGroupId ? null : id);
+      setGroupBuddies(groups.find((group) => group.id === id)?.buddies ?? []);
+    } else {
+      setSelectedBuddyId(id === selectedBuddyId ? null : id);
+    }
   };
 
   const handleTicketClick = (ticketId: string) => {
-    if (!selectedBuddyId) {
-      alert("Please select a contact first");
-      return;
-    }
+    if (modeView === "individuals") {
+      if (!selectedBuddyId) {
+        alert("Please select a buddy first");
+        return;
+      }
 
-    // Assign to selected buddy
-    assignTicket(ticketId, selectedBuddyId);
-    // Clear selection after assignment
-    setSelectedBuddyId(null);
+      // Assign to selected buddy
+      assignTicket(ticketId, selectedBuddyId);
+      // Clear selection after assignment
+      setSelectedBuddyId(null);
+    } else {
+      if (!selectedGroupId || groupBuddies.length === 0) {
+        alert("Please select a group first");
+        return;
+      }
+
+      // Assign the ticket to the first buddy in the group
+      assignTicket(ticketId, groupBuddies[0]);
+      // Remove the first buddy from the list
+      setGroupBuddies((prevState) => prevState.slice(1));
+    }
   };
 
   const handleContinue = () => {
@@ -135,7 +154,8 @@ const TicketSelectionView: React.FC = () => {
                 key={group.id}
                 onClick={() => handleBuddyClick(group.id)}
                 className={`flex items-center p-3 rounded-lg border transition-all ${
-                  selectedBuddyId === group.id
+                  selectedBuddyId === group.id ||
+                  (selectedGroupId === group.id && groupBuddies.length > 0)
                     ? "border-green-500 bg-green-50"
                     : "border-gray-200 hover:border-gray-300 bg-white"
                 }`}
