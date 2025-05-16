@@ -1,5 +1,4 @@
 import React from "react";
-import { CheckCircle } from "lucide-react";
 import { Ticket } from "../types";
 import { useTickets } from "../context/TicketsContext";
 
@@ -12,10 +11,8 @@ const TicketItem: React.FC<TicketItemProps> = ({
   ticket,
   isSelectable = true,
 }) => {
-  const { selectedTickets, toggleTicketSelection, assignments, getBuddyById } =
-    useTickets();
+  const { toggleTicketSelection, assignments, getBuddyById } = useTickets();
 
-  const isSelected = selectedTickets.includes(ticket.id);
   const assignedBuddy = ticket.assigned || assignments[ticket.id];
   const buddy = assignedBuddy ? getBuddyById(assignedBuddy) : undefined;
 
@@ -34,7 +31,7 @@ const TicketItem: React.FC<TicketItemProps> = ({
           </span>
         </div>
 
-        {buddy ? (
+        {buddy && (
           <div className="flex items-center">
             <img
               src={buddy.avatar}
@@ -43,16 +40,8 @@ const TicketItem: React.FC<TicketItemProps> = ({
             />
             <span className="text-sm font-medium">{buddy.name}</span>
           </div>
-        ) : isSelected ? (
-          <CheckCircle size={20} className="text-green-500" />
-        ) : null}
+        )}
       </div>
-
-      {/* {isSelected && isSelectable && (
-        <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-white text-xs">
-          ✓
-        </div>
-      )} */}
     </div>
   );
 };

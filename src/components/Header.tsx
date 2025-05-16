@@ -105,20 +105,6 @@ const Header: React.FC = () => {
                       : "text-green-100 hover:bg-green-700"
                   }`}
                 >
-                  Tickets
-                </Link>
-                <Link
-                  to={
-                    location.pathname.includes("/assign/")
-                      ? location.pathname
-                      : "#"
-                  }
-                  className={`px-3 py-1 rounded-md ${
-                    location.pathname.includes("/assign/")
-                      ? "bg-white text-green-900"
-                      : "text-green-100 hover:bg-green-700"
-                  }`}
-                >
                   Assign
                 </Link>
                 <Link

@@ -41,21 +41,12 @@ const TicketSelectionView: React.FC = () => {
   }, [eventId, setSelectedEventId]);
 
   const handleBuddyClick = (buddyId: string) => {
-    // Don't allow selecting a buddy who already has a ticket
-    if (Object.values(assignments).includes(buddyId)) {
-      return;
-    }
     setSelectedBuddyId(buddyId === selectedBuddyId ? null : buddyId);
   };
 
   const handleTicketClick = (ticketId: string) => {
     if (!selectedBuddyId) {
       alert("Please select a contact first");
-      return;
-    }
-
-    // Don't allow assigning if ticket is already assigned
-    if (assignments[ticketId]) {
       return;
     }
 
@@ -107,12 +98,9 @@ const TicketSelectionView: React.FC = () => {
               <button
                 key={buddy.id}
                 onClick={() => handleBuddyClick(buddy.id)}
-                disabled={hasTicket}
                 className={`flex items-center p-3 rounded-lg border transition-all ${
                   selectedBuddyId === buddy.id
                     ? "border-green-500 bg-green-50"
-                    : hasTicket
-                    ? "border-gray-200 bg-gray-50 opacity-75 cursor-not-allowed"
                     : "border-gray-200 hover:border-gray-300 bg-white"
                 }`}
               >
@@ -154,7 +142,7 @@ const TicketSelectionView: React.FC = () => {
                 return (
                   <div
                     key={ticket.id}
-                    onClick={() => !isAssigned && handleTicketClick(ticket.id)}
+                    onClick={() => handleTicketClick(ticket.id)}
                     className={`cursor-pointer ${
                       isAssigned ? "opacity-75" : ""
                     }`}

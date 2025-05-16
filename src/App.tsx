@@ -1,12 +1,10 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import EventsListView from './pages/EventsListView';
-import ContactsView from './pages/ContactsView';
-import TicketSelectionView from './pages/TicketSelectionView';
-import BuddyAssignmentView from './pages/BuddyAssignmentView';
-import PreviewShareView from './pages/PreviewShareView';
-import { TicketsProvider } from './context/TicketsContext';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import EventsListView from "./pages/EventsListView";
+import ContactsView from "./pages/ContactsView";
+import TicketSelectionView from "./pages/TicketSelectionView";
+import PreviewShareView from "./pages/PreviewShareView";
+import { TicketsProvider } from "./context/TicketsContext";
 
 function App() {
   return (
@@ -18,8 +16,10 @@ function App() {
             <Routes>
               <Route path="/" element={<EventsListView />} />
               <Route path="/contacts" element={<ContactsView />} />
-              <Route path="/tickets/:eventId" element={<TicketSelectionView />} />
-              <Route path="/assign/:eventId" element={<BuddyAssignmentView />} />
+              <Route
+                path="/tickets/:eventId"
+                element={<TicketSelectionView />}
+              />
               <Route path="/preview/:eventId" element={<PreviewShareView />} />
             </Routes>
           </main>

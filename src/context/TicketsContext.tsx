@@ -1,6 +1,11 @@
-import React, { createContext, useContext, useState } from 'react';
-import { Event, Ticket, Buddy, Group } from '../types';
-import { mockEvents, mockTickets, mockBuddies, mockGroups } from '../data/mockData';
+import React, { createContext, useContext, useState } from "react";
+import { Event, Ticket, Buddy, Group } from "../types";
+import {
+  mockEvents,
+  mockTickets,
+  mockBuddies,
+  mockGroups,
+} from "../data/mockData";
 
 interface TicketsContextType {
   events: Event[];
@@ -24,7 +29,9 @@ interface TicketsContextType {
 
 const TicketsContext = createContext<TicketsContextType | undefined>(undefined);
 
-export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [events] = useState<Event[]>(mockEvents);
   const [tickets] = useState<Ticket[]>(mockTickets);
   const [buddies] = useState<Buddy[]>(mockBuddies);
@@ -32,36 +39,41 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
   const [selectedTickets, setSelectedTickets] = useState<string[]>([]);
   const [assignments, setAssignments] = useState<Record<string, string>>({});
-  const [message, setMessage] = useState<string>('');
+  const [message, setMessage] = useState<string>("");
 
   const toggleTicketSelection = (ticketId: string) => {
-    setSelectedTickets(prev => 
-      prev.includes(ticketId) 
-        ? prev.filter(id => id !== ticketId)
-        : [...prev, ticketId]
+    setSelectedTickets((prev) =>
+      prev.includes(ticketId) ? prev : [...prev, ticketId]
     );
   };
 
   const assignTicket = (ticketId: string, buddyId: string) => {
-    setAssignments(prev => ({
-      ...prev,
-      [ticketId]: buddyId,
-    }));
+    const assignedTicket = Object.entries(assignments).find(
+      ([, buddy]) => buddy === buddyId
+    )?.[0];
+
+    const newAssignments = { ...assignments };
+
+    if (assignedTicket) {
+      delete newAssignments[assignedTicket];
+    }
+
+    newAssignments[ticketId] = buddyId;
+
+    setAssignments(newAssignments);
   };
 
   const autoAssignTickets = () => {
-    // Simple auto-assignment logic based on frequently shared buddies
-    const frequentBuddies = buddies
-      .filter(buddy => buddy.frequentlyShared)
-      .map(buddy => buddy.id);
-    
+    // Simple auto-assignment logic
+    const buddiesIds = buddies.map((buddy) => buddy.id);
+
     const newAssignments = { ...assignments };
     selectedTickets.forEach((ticketId, index) => {
-      if (index < frequentBuddies.length) {
-        newAssignments[ticketId] = frequentBuddies[index];
+      if (index < buddiesIds.length) {
+        newAssignments[ticketId] = buddiesIds[index];
       }
     });
-    
+
     setAssignments(newAssignments);
   };
 
@@ -70,26 +82,26 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({ child
   };
 
   const getTicketsForEvent = (eventId: string) => {
-    return tickets.filter(ticket => ticket.eventId === eventId);
+    return tickets.filter((ticket) => ticket.eventId === eventId);
   };
 
   const getBuddyById = (buddyId: string) => {
-    return buddies.find(buddy => buddy.id === buddyId);
+    return buddies.find((buddy) => buddy.id === buddyId);
   };
 
   const completeShare = () => {
     // In a real app, this would handle the API call to share tickets
-    console.log('Sharing tickets:', { 
+    console.log("Sharing tickets:", {
       eventId: selectedEventId,
       tickets: selectedTickets,
       assignments,
-      message
+      message,
     });
-    
+
     // Reset state after sharing
     setSelectedTickets([]);
     setAssignments({});
-    setMessage('');
+    setMessage("");
   };
 
   return (
@@ -111,7 +123,7 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({ child
         setMessage,
         getTicketsForEvent,
         getBuddyById,
-        completeShare
+        completeShare,
       }}
     >
       {children}
@@ -122,7 +134,7 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({ child
 export const useTickets = (): TicketsContextType => {
   const context = useContext(TicketsContext);
   if (context === undefined) {
-    throw new Error('useTickets must be used within a TicketsProvider');
+    throw new Error("useTickets must be used within a TicketsProvider");
   }
   return context;
 };
