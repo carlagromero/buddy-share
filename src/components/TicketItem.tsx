@@ -6,11 +6,13 @@ import { X } from "lucide-react";
 interface TicketItemProps {
   ticket: Ticket;
   isSelectable?: boolean;
+  showClearButton?: boolean;
 }
 
 const TicketItem: React.FC<TicketItemProps> = ({
   ticket,
   isSelectable = true,
+  showClearButton = false,
 }) => {
   const { toggleTicketSelection, assignments, getBuddyById, clearAssignments } =
     useTickets();
@@ -35,16 +37,18 @@ const TicketItem: React.FC<TicketItemProps> = ({
 
         {buddy && (
           <div className="flex items-center">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                clearAssignments(ticket.id);
-              }}
-              className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
-              aria-label="Clear selection"
-            >
-              <X size={18} />
-            </button>
+            {showClearButton && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  clearAssignments(ticket.id);
+                }}
+                className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+                aria-label="Clear selection"
+              >
+                <X size={18} />
+              </button>
+            )}
             <img
               src={buddy.avatar}
               alt={buddy.name}

@@ -253,6 +253,7 @@ const TicketSelectionView: React.FC = () => {
                         assigned: assignments[ticket.id],
                       }}
                       isSelectable={!!(selectedGroupId || selectedBuddyId)}
+                      showClearButton
                     />
                   </div>
                 );
