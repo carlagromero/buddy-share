@@ -21,16 +21,16 @@ export const mockEvents: Event[] = [
     imageUrl:
       "https://images.pexels.com/photos/114296/pexels-photo-114296.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
-  {
-    id: "3",
-    team: "Eagles",
-    opponent: "Giants",
-    date: "2025-11-12",
-    time: "8:20 PM",
-    venue: "Lincoln Financial Field",
-    imageUrl:
-      "https://images.pexels.com/photos/270085/pexels-photo-270085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  },
+  // {
+  //   id: "3",
+  //   team: "Eagles",
+  //   opponent: "Giants",
+  //   date: "2025-11-12",
+  //   time: "8:20 PM",
+  //   venue: "Lincoln Financial Field",
+  //   imageUrl:
+  //     "https://images.pexels.com/photos/270085/pexels-photo-270085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  // },
 ];
 
 export const mockTickets: Ticket[] = [
@@ -42,7 +42,7 @@ export const mockTickets: Ticket[] = [
     row: "15",
     seat: "7",
     isCombo: true,
-    comboSize: 3
+    comboSize: 3,
   },
   {
     id: "102",
@@ -51,7 +51,7 @@ export const mockTickets: Ticket[] = [
     row: "15",
     seat: "8",
     isCombo: true,
-    comboSize: 3
+    comboSize: 3,
   },
   // { id: '103', eventId: '1', section: '123', row: '15', seat: '9' },
   // { id: '104', eventId: '1', section: '123', row: '15', seat: '10' },
@@ -98,7 +98,7 @@ export const mockTickets: Ticket[] = [
     row: "12",
     seat: "1",
     isCombo: true,
-    comboSize: 5
+    comboSize: 5,
   },
   {
     id: "302",
@@ -107,7 +107,7 @@ export const mockTickets: Ticket[] = [
     row: "12",
     seat: "2",
     isCombo: true,
-    comboSize: 5
+    comboSize: 5,
   },
 ];
 

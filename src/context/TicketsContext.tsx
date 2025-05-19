@@ -14,14 +14,13 @@ interface TicketsContextType {
   groups: Group[];
   selectedEventId: string | null;
   selectedTickets: string[];
-  assignments: Record<string, string>;
+  assignments: Record<string, { buddyId: string; isComboBox?: boolean }>;
   message: string;
   setSelectedEventId: (id: string | null) => void;
   toggleTicketSelection: (ticketId: string) => void;
   assignTicket: (ticketId: string, buddyId: string) => void;
-  autoAssignTickets: () => void;
+  setComboBoxForTicket: (ticketId: string, isComboBox: boolean) => void;
   clearAssignments: (ticketId?: string) => void;
-  clearGroupAssignments: (groupId: string) => void;
   setMessage: (message: string) => void;
   getTicketsForEvent: (eventId: string) => Ticket[];
   getBuddyById: (buddyId: string) => Buddy | undefined;
@@ -40,7 +39,9 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
   const [groups] = useState<Group[]>(mockGroups);
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
   const [selectedTickets, setSelectedTickets] = useState<string[]>([]);
-  const [assignments, setAssignments] = useState<Record<string, string>>({});
+  const [assignments, setAssignments] = useState<
+    Record<string, { buddyId: string; isComboBox?: boolean }>
+  >({});
   const [message, setMessage] = useState<string>("");
 
   const toggleTicketSelection = (ticketId: string) => {
@@ -51,7 +52,7 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const assignTicket = (ticketId: string, buddyId: string) => {
     const assignedTicket = Object.entries(assignments).find(
-      ([, buddy]) => buddy === buddyId
+      ([, value]) => value.buddyId === buddyId
     )?.[0];
 
     const newAssignments = { ...assignments };
@@ -60,21 +61,29 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
       delete newAssignments[assignedTicket];
     }
 
-    newAssignments[ticketId] = buddyId;
+    newAssignments[ticketId] = {
+      buddyId,
+      isComboBox: assignments[ticketId]?.isComboBox ?? false,
+    };
 
     setAssignments(newAssignments);
   };
 
-  const autoAssignTickets = () => {
-    // Simple auto-assignment logic
-    const buddiesIds = buddies.map((buddy) => buddy.id);
+  const setComboBoxForTicket = (ticketId: string, isComboBox: boolean) => {
+    const assignedTicket = Object.entries(assignments).find(
+      ([id]) => ticketId === id
+    )?.[0];
 
     const newAssignments = { ...assignments };
-    selectedTickets.forEach((ticketId, index) => {
-      if (index < buddiesIds.length) {
-        newAssignments[ticketId] = buddiesIds[index];
-      }
-    });
+
+    if (assignedTicket) {
+      delete newAssignments[assignedTicket];
+    }
+
+    newAssignments[ticketId] = {
+      buddyId: assignments[ticketId]?.buddyId ?? "",
+      isComboBox,
+    };
 
     setAssignments(newAssignments);
   };
@@ -88,19 +97,6 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
     }
 
     setAssignments({});
-  };
-
-  const clearGroupAssignments = (groupId: string) => {
-    setAssignments((prevState) => ({
-      ...Object.fromEntries(
-        Object.entries(prevState).filter(
-          ([, buddy]) =>
-            !groups
-              .find((group) => group.id === groupId)
-              ?.buddies.includes(buddy)
-        )
-      ),
-    }));
   };
 
   const getTicketsForEvent = (eventId: string) => {
@@ -145,9 +141,8 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
         setSelectedEventId,
         toggleTicketSelection,
         assignTicket,
-        autoAssignTickets,
+        setComboBoxForTicket,
         clearAssignments,
-        clearGroupAssignments,
         setMessage,
         getTicketsForEvent,
         getBuddyById,

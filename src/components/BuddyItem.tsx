@@ -12,7 +12,7 @@ const BuddyItem: React.FC<BuddyItemProps> = ({ buddy, availableTickets }) => {
 
   // Find tickets already assigned to this buddy
   const assignedTickets = Object.entries(assignments)
-    .filter(([, buddyId]) => buddyId === buddy.id)
+    .filter(([, value]) => value.buddyId === buddy.id)
     .map(([ticketId]) => ticketId);
 
   const handleAssignTicket = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -50,7 +50,7 @@ const BuddyItem: React.FC<BuddyItemProps> = ({ buddy, availableTickets }) => {
               disabled={
                 assignedTickets.includes(ticket.id) ||
                 (Object.keys(assignments).includes(ticket.id) &&
-                  assignments[ticket.id] !== buddy.id)
+                  assignments[ticket.id].buddyId !== buddy.id)
               }
             >
               Section {ticket.section}, Row {ticket.row}, Seat {ticket.seat}

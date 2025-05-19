@@ -7,7 +7,8 @@ const EventsListView: React.FC = () => {
 
   React.useEffect(() => {
     resetState();
-  }, [resetState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>

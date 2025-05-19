@@ -91,7 +91,7 @@ const PreviewShareView: React.FC = () => {
                 key={ticket.id}
                 ticket={{
                   ...ticket,
-                  assigned: assignments[ticket.id],
+                  assigned: assignments[ticket.id].buddyId,
                 }}
                 isSelectable={false}
               />

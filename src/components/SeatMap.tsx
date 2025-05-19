@@ -42,7 +42,7 @@ const SeatMap: React.FC<SeatMapProps> = ({ tickets, section }) => {
             {ticketsByRow[row]
               .sort((a, b) => parseInt(a.seat) - parseInt(b.seat))
               .map((ticket) => {
-                const assignedBuddy = assignments[ticket.id];
+                const assignedBuddy = assignments[ticket.id].buddyId;
                 const buddy = assignedBuddy
                   ? getBuddyById(assignedBuddy)
                   : undefined;

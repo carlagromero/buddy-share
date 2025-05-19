@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Ticket } from "../types";
 import { useTickets } from "../context/TicketsContext";
 import { Ticket as TicketIcon, X } from "lucide-react";
@@ -6,20 +6,25 @@ import { Ticket as TicketIcon, X } from "lucide-react";
 interface TicketItemProps {
   ticket: Ticket;
   isSelectable?: boolean;
-  showClearButton?: boolean;
+  isEditable?: boolean;
 }
 
 const TicketItem: React.FC<TicketItemProps> = ({
   ticket,
   isSelectable = true,
-  showClearButton = false,
+  isEditable = false,
 }) => {
-  const { toggleTicketSelection, assignments, getBuddyById, clearAssignments } =
-    useTickets();
-  const [isChecked, setIsChecked] = useState(false);
+  const {
+    toggleTicketSelection,
+    assignments,
+    getBuddyById,
+    clearAssignments,
+    setComboBoxForTicket,
+  } = useTickets();
 
-  const assignedBuddy = ticket.assigned || assignments[ticket.id];
+  const assignedBuddy = ticket.assigned || assignments[ticket.id]?.buddyId;
   const buddy = assignedBuddy ? getBuddyById(assignedBuddy) : undefined;
+  const isComboBoxSelected = assignments[ticket.id]?.isComboBox ?? false;
 
   return (
     <div
@@ -30,27 +35,28 @@ const TicketItem: React.FC<TicketItemProps> = ({
     >
       <div className="flex justify-between items-center">
         <div className="flex gap-3">
-          {ticket.isCombo && (
+          {isEditable && ticket.isCombo && (
             <label className="relative flex items-center cursor-pointer">
               <input
                 type="checkbox"
                 className="sr-only"
-                checked={isChecked}
-                onChange={(e) => {
+                onClick={(e) => {
                   e.stopPropagation();
-                  setIsChecked(e.target.checked);
+                }}
+                onChange={(e) => {
+                  setComboBoxForTicket(ticket.id, e.target.checked);
                 }}
               />
               <div
                 className={`h-5 w-5 rounded flex items-center justify-center transition-colors border ${
-                  isChecked
+                  isComboBoxSelected
                     ? "bg-green-600 border-green-600"
                     : "bg-white border-gray-300"
                 }`}
               >
                 <svg
                   className={`h-4 w-4 text-white ${
-                    isChecked ? "block" : "hidden"
+                    isComboBoxSelected ? "block" : "hidden"
                   }`}
                   fill="none"
                   stroke="currentColor"
@@ -71,7 +77,7 @@ const TicketItem: React.FC<TicketItemProps> = ({
             <span className="text-gray-600 text-sm">
               Row {ticket.row}, Seat {ticket.seat}
             </span>
-            {ticket.isCombo && (
+            {(isEditable || isComboBoxSelected) && (
               <div className="flex items-center bg-yellow-100 text-sm text-gray-500 gap-2">
                 <span>
                   <TicketIcon size={20} />
@@ -84,7 +90,7 @@ const TicketItem: React.FC<TicketItemProps> = ({
 
         {buddy && (
           <div className="flex items-center">
-            {showClearButton && (
+            {isEditable && (
               <button
                 onClick={(e) => {
                   e.stopPropagation();

@@ -183,9 +183,12 @@ const TicketSelectionView: React.FC = () => {
           // Individuals
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {buddies.map((buddy) => {
-              const hasTicket = Object.values(assignments).includes(buddy.id);
+              const hasTicket = Object.values(assignments).some(
+                (value) => value.buddyId === buddy.id
+              );
+
               const assignedTicketId = Object.entries(assignments).find(
-                ([, id]) => id === buddy.id
+                ([, value]) => value.buddyId === buddy.id
               )?.[0];
               const assignedTicket = assignedTicketId
                 ? tickets.find((t) => t.id === assignedTicketId)
@@ -237,7 +240,7 @@ const TicketSelectionView: React.FC = () => {
             <h4 className="font-medium mb-3">Section {section}</h4>
             <div className="bg-white rounded-lg shadow-sm p-4">
               {sectionTickets.map((ticket) => {
-                const isAssigned = assignments[ticket.id];
+                const isAssigned = assignments[ticket.id]?.buddyId ?? false;
 
                 return (
                   <div
@@ -250,10 +253,10 @@ const TicketSelectionView: React.FC = () => {
                     <TicketItem
                       ticket={{
                         ...ticket,
-                        assigned: assignments[ticket.id],
+                        assigned: isAssigned,
                       }}
                       isSelectable={!!(selectedGroupId || selectedBuddyId)}
-                      showClearButton
+                      isEditable
                     />
                   </div>
                 );
