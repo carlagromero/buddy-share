@@ -15,6 +15,8 @@ export interface Ticket {
   row: string;
   seat: string;
   assigned?: string;
+  isCombo: boolean;
+  comboSize?: number;
 }
 
 export interface Buddy {
