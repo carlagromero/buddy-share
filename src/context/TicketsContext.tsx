@@ -20,7 +20,7 @@ interface TicketsContextType {
   toggleTicketSelection: (ticketId: string) => void;
   assignTicket: (ticketId: string, buddyId: string) => void;
   autoAssignTickets: () => void;
-  clearAssignments: () => void;
+  clearAssignments: (ticketId?: string) => void;
   clearGroupAssignments: (groupId: string) => void;
   setMessage: (message: string) => void;
   getTicketsForEvent: (eventId: string) => Ticket[];
@@ -79,7 +79,14 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
     setAssignments(newAssignments);
   };
 
-  const clearAssignments = () => {
+  const clearAssignments = (ticketId?: string) => {
+    if (ticketId) {
+      const newAssignments = { ...assignments };
+      delete newAssignments[ticketId];
+      setAssignments(newAssignments);
+      return;
+    }
+
     setAssignments({});
   };
 

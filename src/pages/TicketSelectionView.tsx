@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { ArrowRight, Ticket, Undo, Users } from "lucide-react";
+import { ArrowRight, Ticket, Users } from "lucide-react";
 import TicketItem from "../components/TicketItem";
 import { useTickets } from "../context/TicketsContext";
 
@@ -17,7 +17,6 @@ const TicketSelectionView: React.FC = () => {
     assignments,
     groups,
     resetState,
-    clearGroupAssignments,
   } = useTickets();
 
   const [modeView, setModeView] = useState<"groups" | "individuals">("groups");
@@ -151,6 +150,7 @@ const TicketSelectionView: React.FC = () => {
       {/* Contacts Section */}
       <div className="mb-8">
         {modeView === "groups" ? (
+          // Groups
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {groups.map((group) => (
               <button
@@ -176,26 +176,11 @@ const TicketSelectionView: React.FC = () => {
                       .join(", ")}
                   </p>
                 </div>
-                {group.buddies.some((id) =>
-                  Object.values(assignments).includes(id)
-                ) && (
-                  <>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        clearGroupAssignments(group.id);
-                      }}
-                      className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
-                      aria-label="Clear selection"
-                    >
-                      <Undo size={20} />
-                    </button>
-                  </>
-                )}
               </button>
             ))}
           </div>
         ) : (
+          // Individuals
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {buddies.map((buddy) => {
               const hasTicket = Object.values(assignments).includes(buddy.id);
