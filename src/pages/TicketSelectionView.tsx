@@ -69,7 +69,6 @@ const TicketSelectionView: React.FC = () => {
   const handleTicketClick = (ticketId: string) => {
     if (modeView === "individuals") {
       if (!selectedBuddyId) {
-        alert("Please select a buddy first");
         return;
       }
 
@@ -79,14 +78,17 @@ const TicketSelectionView: React.FC = () => {
       setSelectedBuddyId(null);
     } else {
       if (!selectedGroupId || groupBuddies.length === 0) {
-        alert("Please select a group first");
         return;
       }
 
       // Assign the ticket to the first buddy in the group
       assignTicket(ticketId, groupBuddies[0]);
       // Remove the first buddy from the list
-      setGroupBuddies((prevState) => prevState.slice(1));
+      setGroupBuddies((prevState) => {
+        const newState = prevState.slice(1);
+        if (!newState.length) setSelectedGroupId(null);
+        return newState;
+      });
     }
   };
 
@@ -165,7 +167,13 @@ const TicketSelectionView: React.FC = () => {
                 <div className="ml-3 text-left">
                   <h4 className="font-medium text-gray-800">{group.name}</h4>
                   <p className="text-sm text-gray-500">
-                    {group.buddies.length} members
+                    {group.buddies
+                      .map(
+                        (buddyId) =>
+                          buddies.find((item) => item.id === buddyId)?.name
+                      )
+                      .filter(Boolean)
+                      .join(", ")}
                   </p>
                 </div>
                 {group.buddies.some((id) =>
@@ -259,6 +267,7 @@ const TicketSelectionView: React.FC = () => {
                         ...ticket,
                         assigned: assignments[ticket.id],
                       }}
+                      isSelectable={!!(selectedGroupId || selectedBuddyId)}
                     />
                   </div>
                 );
