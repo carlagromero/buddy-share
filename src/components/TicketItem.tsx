@@ -77,7 +77,7 @@ const TicketItem: React.FC<TicketItemProps> = ({
             <span className="text-gray-600 text-sm">
               Row {ticket.row}, Seat {ticket.seat}
             </span>
-            {(isEditable || isComboBoxSelected) && (
+            {(isEditable && ticket.isCombo) && (
               <div className="flex flex-col gap-1">
                 <div className="flex self-start bg-green-50 text-sm text-green-600 gap-2 px-1">
                   <span>

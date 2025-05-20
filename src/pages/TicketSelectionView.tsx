@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { ArrowRight, Ticket } from "lucide-react";
+import { ArrowRight, CheckCircle, Ticket } from "lucide-react";
 import TicketItem from "../components/TicketItem";
 import { useTickets } from "../context/TicketsContext";
 
@@ -17,9 +17,10 @@ const TicketSelectionView: React.FC = () => {
     assignments,
     groups,
     resetState,
+    modeView,
+    setModeView,
   } = useTickets();
 
-  const [modeView, setModeView] = useState<"groups" | "individuals">("groups");
   const [selectedBuddyId, setSelectedBuddyId] = useState<string | null>(null);
   const [selectedGroupId, setSelectedGroupId] = useState<string | null>(null);
   const [groupBuddies, setGroupBuddies] = useState<string[]>([]);
@@ -128,10 +129,11 @@ const TicketSelectionView: React.FC = () => {
         <div className="flex items-center mt-4">
           <button
             onClick={() => {
-              setModeView((prevState) =>
-                prevState === "groups" ? "individuals" : "groups"
-              );
+              setModeView(modeView === "groups" ? "individuals" : "groups");
               resetState();
+              setSelectedGroupId(null);
+              setSelectedGroupId(null);
+              setGroupBuddies([]);
             }}
             className="relative inline-flex h-12 w-48 items-center rounded-md border border-gray-300 bg-white p-1"
           >
@@ -163,47 +165,62 @@ const TicketSelectionView: React.FC = () => {
         {modeView === "groups" ? (
           // Groups
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {groups.map((group) => (
-              <button
-                key={group.id}
-                onClick={() => handleBuddyClick(group.id)}
-                className={`flex items-center p-3 rounded-lg border transition-all relative ${
-                  selectedBuddyId === group.id ||
-                  (selectedGroupId === group.id && groupBuddies.length > 0)
-                    ? "border-green-500 bg-green-50"
-                    : "border-gray-200 hover:border-gray-300 bg-white"
-                }`}
-              >
-                <div className="flex flex-wrap -space-x-3 justify-end">
-                  {group.buddies.slice(0, 4).map((buddyId) => {
-                    const item = buddies.find((b) => b.id === buddyId);
-                    if (!item) return null;
+            {groups.map((group) => {
+              const isGroupAssigned = group.buddies.every((buddyId) =>
+                Object.values(assignments)
+                  .map((value) => value.buddyId)
+                  .includes(buddyId)
+              );
 
-                    return (
-                      <img
-                        key={item.id}
-                        src={item.avatar}
-                        alt={item.name}
-                        className="w-8 h-8 rounded-full border-2 border-white"
-                      />
-                    );
-                  })}
-                </div>
+              return (
+                <button
+                  disabled={isGroupAssigned}
+                  key={group.id}
+                  onClick={() => handleBuddyClick(group.id)}
+                  className={`flex items-center p-3 rounded-lg border transition-all relative ${
+                    selectedBuddyId === group.id ||
+                    (selectedGroupId === group.id && groupBuddies.length > 0)
+                      ? "border-green-500 bg-green-50"
+                      : "border-gray-200 hover:border-gray-300 bg-white"
+                  }`}
+                >
+                  <div className="flex flex-wrap -space-x-3 justify-end">
+                    {group.buddies.slice(0, 4).map((buddyId) => {
+                      const item = buddies.find((b) => b.id === buddyId);
+                      if (!item) return null;
 
-                <div className="ml-3 text-left">
-                  <h4 className="font-medium text-gray-800">{group.name}</h4>
-                  <p className="text-sm text-gray-500">
-                    {group.buddies
-                      .map(
-                        (buddyId) =>
-                          buddies.find((item) => item.id === buddyId)?.name
-                      )
-                      .filter(Boolean)
-                      .join(", ")}
-                  </p>
-                </div>
-              </button>
-            ))}
+                      return (
+                        <img
+                          key={item.id}
+                          src={item.avatar}
+                          alt={item.name}
+                          className="w-8 h-8 rounded-full border-2 border-white"
+                        />
+                      );
+                    })}
+                  </div>
+
+                  <div className="ml-3 text-left">
+                    <h4 className="font-medium text-gray-800">{group.name}</h4>
+                    <p className="text-sm text-gray-500">
+                      {group.buddies
+                        .map(
+                          (buddyId) =>
+                            buddies.find((item) => item.id === buddyId)?.name
+                        )
+                        .filter(Boolean)
+                        .join(", ")}
+                    </p>
+                  </div>
+                  {isGroupAssigned && (
+                    <CheckCircle
+                      className="absolute top-2 right-2 text-green-500"
+                      size={18}
+                    />
+                  )}
+                </button>
+              );
+            })}
           </div>
         ) : (
           // Individuals
@@ -239,8 +256,7 @@ const TicketSelectionView: React.FC = () => {
                     <h4 className="font-medium text-gray-800">{buddy.name}</h4>
                     {hasTicket && assignedTicket ? (
                       <p className="text-sm text-green-600">
-                        Section {assignedTicket.section}, Seat{" "}
-                        {assignedTicket.seat}
+                        Sec {assignedTicket.section}, Seat {assignedTicket.seat}
                       </p>
                     ) : (
                       <p className="text-sm text-gray-500">

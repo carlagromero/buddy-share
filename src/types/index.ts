@@ -31,3 +31,5 @@ export interface Group {
   name: string;
   buddies: string[];
 }
+
+export type ModeView = "groups" | "individuals";

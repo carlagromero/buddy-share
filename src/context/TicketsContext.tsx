@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import { Event, Ticket, Buddy, Group } from "../types";
+import { Event, Ticket, Buddy, Group, ModeView } from "../types";
 import {
   mockEvents,
   mockTickets,
@@ -16,6 +16,7 @@ interface TicketsContextType {
   selectedTickets: string[];
   assignments: Record<string, { buddyId: string; isComboBox?: boolean }>;
   message: string;
+  modeView: ModeView;
   setSelectedEventId: (id: string | null) => void;
   toggleTicketSelection: (ticketId: string) => void;
   assignTicket: (ticketId: string, buddyId: string) => void;
@@ -25,6 +26,7 @@ interface TicketsContextType {
   getTicketsForEvent: (eventId: string) => Ticket[];
   getBuddyById: (buddyId: string) => Buddy | undefined;
   completeShare: () => void;
+  setModeView: (modeView: ModeView) => void;
   resetState: () => void;
 }
 
@@ -43,6 +45,7 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
     Record<string, { buddyId: string; isComboBox?: boolean }>
   >({});
   const [message, setMessage] = useState<string>("");
+  const [modeView, setModeView] = useState<ModeView>("groups");
 
   const toggleTicketSelection = (ticketId: string) => {
     setSelectedTickets((prev) =>
@@ -138,6 +141,7 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
         selectedTickets,
         assignments,
         message,
+        modeView,
         setSelectedEventId,
         toggleTicketSelection,
         assignTicket,
@@ -148,6 +152,7 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
         getBuddyById,
         completeShare,
         resetState,
+        setModeView,
       }}
     >
       {children}
