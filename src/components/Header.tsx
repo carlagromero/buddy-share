@@ -72,7 +72,7 @@ const Header: React.FC = () => {
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Contacts
+                  Buddies
                 </Link>
               </div>
             )}

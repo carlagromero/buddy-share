@@ -1,7 +1,7 @@
 import React from "react";
 import { Ticket } from "../types";
 import { useTickets } from "../context/TicketsContext";
-import { Ticket as TicketIcon, X } from "lucide-react";
+import { Info, Ticket as TicketIcon, X } from "lucide-react";
 
 interface TicketItemProps {
   ticket: Ticket;
@@ -78,11 +78,19 @@ const TicketItem: React.FC<TicketItemProps> = ({
               Row {ticket.row}, Seat {ticket.seat}
             </span>
             {(isEditable || isComboBoxSelected) && (
-              <div className="flex items-center bg-yellow-100 text-sm text-gray-500 gap-2">
-                <span>
-                  <TicketIcon size={20} />
-                </span>
-                <span>{ticket.comboSize} tickets</span>
+              <div className="flex flex-col gap-1">
+                <div className="flex self-start bg-green-50 text-sm text-green-600 gap-2 px-1">
+                  <span>
+                    <TicketIcon size={20} />
+                  </span>
+                  <span>{ticket.comboSize} tickets</span>
+                </div>
+                {isComboBoxSelected && (
+                  <div className="flex items-center gap-1 text-xs text-gray-400">
+                    <Info size={14} />{" "}
+                    <span>Combo tickets will be transferred</span>
+                  </div>
+                )}
               </div>
             )}
           </div>

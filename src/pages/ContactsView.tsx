@@ -1,6 +1,6 @@
 import React from "react";
 import { useTickets } from "../context/TicketsContext";
-import { UserPlus, Users } from "lucide-react";
+import { Users } from "lucide-react";
 
 const ContactsView: React.FC = () => {
   const { buddies, groups } = useTickets();
@@ -8,11 +8,7 @@ const ContactsView: React.FC = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">Contacts</h2>
-        <button className="flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
-          <UserPlus size={18} className="mr-2" />
-          Add Contact
-        </button>
+        <h2 className="text-2xl font-bold text-gray-800">Buddies</h2>
       </div>
 
       <div className="grid gap-6">

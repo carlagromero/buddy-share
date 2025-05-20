@@ -101,6 +101,16 @@ const TicketSelectionView: React.FC = () => {
     return <div>Event not found</div>;
   }
 
+  const ticketsAssigned = Object.entries(assignments).reduce(
+    (acc, [ticketId, { buddyId, isComboBox }]) => {
+      if (!buddyId) return acc;
+
+      const ticket = tickets.find((t) => t.id === ticketId);
+      return acc + (isComboBox ? ticket?.comboSize || 0 : 1);
+    },
+    0
+  );
+
   return (
     <div className="pb-24">
       <div className="mb-6">
@@ -233,7 +243,7 @@ const TicketSelectionView: React.FC = () => {
       <div className="mb-8">
         <div className="flex items-center mb-4">
           <Ticket size={20} className="text-gray-500 mr-2" />
-          <h3 className="font-medium text-lg">Available Tickets</h3>
+          <h3 className="font-medium text-lg">My Tickets</h3>
         </div>
         {Object.entries(ticketsBySection).map(([section, sectionTickets]) => (
           <div key={section} className="mb-8">
@@ -246,9 +256,7 @@ const TicketSelectionView: React.FC = () => {
                   <div
                     key={ticket.id}
                     onClick={() => handleTicketClick(ticket.id)}
-                    className={`cursor-pointer ${
-                      isAssigned ? "opacity-75" : ""
-                    }`}
+                    className="cursor-pointer"
                   >
                     <TicketItem
                       ticket={{
@@ -270,16 +278,16 @@ const TicketSelectionView: React.FC = () => {
         <div className="container mx-auto flex justify-between items-center">
           <div>
             <p className="text-sm text-gray-600">
-              {Object.keys(assignments).length} ticket
-              {Object.keys(assignments).length === 1 ? "" : "s"} assigned
+              {ticketsAssigned} ticket
+              {ticketsAssigned === 1 ? "" : "s"} assigned
             </p>
           </div>
 
           <button
             onClick={handleContinue}
-            disabled={Object.keys(assignments).length === 0}
+            disabled={!ticketsAssigned}
             className={`flex items-center justify-center px-6 py-2 rounded-md font-medium ${
-              Object.keys(assignments).length > 0
+              ticketsAssigned
                 ? "bg-green-600 text-white hover:bg-green-700"
                 : "bg-gray-200 text-gray-500 cursor-not-allowed"
             } transition-colors`}

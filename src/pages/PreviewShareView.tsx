@@ -105,7 +105,7 @@ const PreviewShareView: React.FC = () => {
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Looking forward to the game! Meet at the gate at 12:30pm."
+          placeholder="Enjoy the tickets! Hope it’s a great one!"
           className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
           rows={3}
         ></textarea>
