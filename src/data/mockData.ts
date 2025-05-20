@@ -117,25 +117,29 @@ export const mockBuddies: Buddy[] = [
     name: "Mike",
     relationship: "Husband",
     avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+    isActive: true,
   },
   {
     id: "2",
     name: "Jen",
     relationship: "Sister",
     avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+    isActive: true,
   },
   {
     id: "3",
     name: "Carlos",
     relationship: "Friend",
     avatar: "https://randomuser.me/api/portraits/men/67.jpg",
+    isActive: true,
   },
-  // {
-  //   id: '4',
-  //   name: 'Taylor',
-  //   relationship: 'Coworker',
-  //   avatar: 'https://randomuser.me/api/portraits/women/23.jpg',
-  // },
+  {
+    id: "4",
+    name: "Taylor",
+    relationship: "Coworker",
+    avatar: "https://randomuser.me/api/portraits/women/23.jpg",
+    isActive: false,
+  },
   // {
   //   id: '5',
   //   name: 'Jordan',
@@ -155,9 +159,29 @@ export const mockGroups: Group[] = [
     name: "Friends",
     buddies: ["3"],
   },
-  // {
-  //   id: '3',
-  //   name: 'Work',
-  //   buddies: ['4']
-  // }
+  {
+    id: "3",
+    name: "Work",
+    buddies: ["4"],
+  },
+];
+
+export const mockNames = [
+  "Alex",
+  "Sam",
+  "Jamie",
+  "Jordan",
+  "Casey",
+  "Riley",
+  "Morgan",
+  "Cameron",
+  "Skyler",
+  "Parker",
+  "Reese",
+  "Emerson",
+  "Blake",
+  "Logan",
+  "Hayden",
+  "Elliot",
+  "Harper",
 ];

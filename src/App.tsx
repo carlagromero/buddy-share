@@ -10,6 +10,7 @@ import ContactsView from "./pages/ContactsView";
 import TicketSelectionView from "./pages/TicketSelectionView";
 import PreviewShareView from "./pages/PreviewShareView";
 import { TicketsProvider } from "./context/TicketsContext";
+import InviteContactView from "./pages/InviteContactView";
 
 const MainLayout = () => (
   <div className="min-h-screen bg-gray-50">
@@ -28,6 +29,7 @@ function App() {
           <Route element={<MainLayout />}>
             <Route path="/" element={<EventsListView />} />
             <Route path="/contacts" element={<ContactsView />} />
+            <Route path="/contacts/invite" element={<InviteContactView />} />
             <Route path="/tickets/:eventId" element={<TicketSelectionView />} />
             <Route path="/preview/:eventId" element={<PreviewShareView />} />
           </Route>

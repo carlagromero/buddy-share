@@ -28,6 +28,7 @@ interface TicketsContextType {
   completeShare: () => void;
   setModeView: (modeView: ModeView) => void;
   resetState: () => void;
+  addBuddy: (buddy: Omit<Buddy, "id">) => void;
 }
 
 const TicketsContext = createContext<TicketsContextType | undefined>(undefined);
@@ -37,7 +38,7 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [events] = useState<Event[]>(mockEvents);
   const [tickets] = useState<Ticket[]>(mockTickets);
-  const [buddies] = useState<Buddy[]>(mockBuddies);
+  const [buddies, setBuddies] = useState<Buddy[]>(mockBuddies);
   const [groups] = useState<Group[]>(mockGroups);
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
   const [selectedTickets, setSelectedTickets] = useState<string[]>([]);
@@ -130,6 +131,18 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
     resetState();
   };
 
+  const addBuddy = (buddy: Omit<Buddy, "id">) => {
+    const newBuddy: Buddy = {
+      id: Math.random().toString(),
+      name: buddy.name,
+      relationship: buddy.relationship,
+      avatar: buddy.avatar,
+      isActive: buddy.isActive,
+    };
+
+    setBuddies((prevBuddies) => [...prevBuddies, newBuddy]);
+  };
+
   return (
     <TicketsContext.Provider
       value={{
@@ -153,6 +166,7 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
         completeShare,
         resetState,
         setModeView,
+        addBuddy,
       }}
     >
       {children}

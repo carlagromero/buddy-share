@@ -77,14 +77,17 @@ const TicketItem: React.FC<TicketItemProps> = ({
             <span className="text-gray-600 text-sm">
               Row {ticket.row}, Seat {ticket.seat}
             </span>
-            {(isEditable && ticket.isCombo) && (
+            {ticket.isCombo && (
               <div className="flex flex-col gap-1">
-                <div className="flex self-start bg-green-50 text-sm text-green-600 gap-2 px-1">
-                  <span>
-                    <TicketIcon size={20} />
-                  </span>
-                  <span>{ticket.comboSize} tickets</span>
-                </div>
+                {(isEditable || isComboBoxSelected) && (
+                  <div className="flex self-start bg-green-50 text-sm text-green-600 gap-2 px-1">
+                    <span>
+                      <TicketIcon size={20} />
+                    </span>
+                    <span>{ticket.comboSize} tickets</span>
+                  </div>
+                )}
+
                 {isComboBoxSelected && (
                   <div className="flex items-center gap-1 text-xs text-gray-400">
                     <Info size={14} />{" "}

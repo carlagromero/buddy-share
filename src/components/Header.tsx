@@ -5,7 +5,8 @@ import { Users, ArrowLeft, ChevronDown } from "lucide-react";
 const Header: React.FC = () => {
   const location = useLocation();
   const { eventId } = useParams<{ eventId: string }>();
-  const isHome = location.pathname === "/" || location.pathname === "/contacts";
+  const isHome =
+    location.pathname === "/" || location.pathname.startsWith("/contacts");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const assignComplete = location.state?.fromAssignComplete || false;

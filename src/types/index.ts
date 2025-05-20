@@ -24,6 +24,7 @@ export interface Buddy {
   name: string;
   relationship: string;
   avatar: string;
+  isActive: boolean;
 }
 
 export interface Group {
