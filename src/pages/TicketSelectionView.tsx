@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { ArrowRight, Ticket, Users } from "lucide-react";
+import { ArrowRight, Ticket } from "lucide-react";
 import TicketItem from "../components/TicketItem";
 import { useTickets } from "../context/TicketsContext";
 
@@ -122,8 +122,9 @@ const TicketSelectionView: React.FC = () => {
           <span className="font-semibold">
             {modeView === "groups" ? "group" : "contact"}
           </span>{" "}
-          and assign them a ticket
+          to assign {modeView === "groups" ? "tickets" : "a ticket"}
         </p>
+
         <div className="flex items-center mt-4">
           <button
             onClick={() => {
@@ -173,7 +174,22 @@ const TicketSelectionView: React.FC = () => {
                     : "border-gray-200 hover:border-gray-300 bg-white"
                 }`}
               >
-                <Users size={30} className="text-gray-500" />
+                <div className="flex flex-wrap -space-x-3 justify-end">
+                  {group.buddies.slice(0, 4).map((buddyId) => {
+                    const item = buddies.find((b) => b.id === buddyId);
+                    if (!item) return null;
+
+                    return (
+                      <img
+                        key={item.id}
+                        src={item.avatar}
+                        alt={item.name}
+                        className="w-8 h-8 rounded-full border-2 border-white"
+                      />
+                    );
+                  })}
+                </div>
+
                 <div className="ml-3 text-left">
                   <h4 className="font-medium text-gray-800">{group.name}</h4>
                   <p className="text-sm text-gray-500">
@@ -255,7 +271,7 @@ const TicketSelectionView: React.FC = () => {
                 return (
                   <div
                     key={ticket.id}
-                    onClick={() => handleTicketClick(ticket.id)}
+                    onClick={() => !isAssigned && handleTicketClick(ticket.id)}
                     className="cursor-pointer"
                   >
                     <TicketItem
