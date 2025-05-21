@@ -147,7 +147,7 @@ const TicketSelectionView: React.FC = () => {
             <span
               className={`flex h-full w-1/2 cursor-pointer items-center justify-center rounded-l-md font-medium transition-colors ${
                 modeView === "groups"
-                  ? "bg-green-600 text-white"
+                  ? "bg-primary text-white"
                   : "text-gray-700"
               }`}
             >
@@ -158,7 +158,7 @@ const TicketSelectionView: React.FC = () => {
               className={`flex h-full w-1/2 cursor-pointer items-center justify-center rounded-r-md font-medium transition-colors ${
                 modeView === "groups"
                   ? "text-gray-700"
-                  : "bg-green-600 text-white"
+                  : "bg-primary text-white"
               }`}
             >
               Individuals
@@ -193,7 +193,7 @@ const TicketSelectionView: React.FC = () => {
                     className={`flex items-center p-3 rounded-lg border transition-all relative ${
                       selectedBuddyId === group.id ||
                       (selectedGroupId === group.id && groupBuddies.length > 0)
-                        ? "border-green-500 bg-green-50"
+                        ? "border-blue-500 bg-blue-50"
                         : "border-gray-200 hover:border-gray-300 bg-white"
                     }`}
                   >
@@ -232,7 +232,7 @@ const TicketSelectionView: React.FC = () => {
 
                     {isGroupAssigned && (
                       <CheckCircle
-                        className="absolute top-2 right-2 text-green-500"
+                        className="absolute top-2 right-2 text-blue-500"
                         size={18}
                       />
                     )}
@@ -263,7 +263,7 @@ const TicketSelectionView: React.FC = () => {
                     onClick={() => handleBuddyClick(buddy.id)}
                     className={`flex items-center p-3 rounded-lg border transition-all ${
                       selectedBuddyId === buddy.id
-                        ? "border-green-500 bg-green-50"
+                        ? "border-blue-500 bg-blue-50"
                         : "border-gray-200 hover:border-gray-300 bg-white"
                     }`}
                   >
@@ -277,7 +277,7 @@ const TicketSelectionView: React.FC = () => {
                         {buddy.name}
                       </h4>
                       {hasTicket && assignedTicket ? (
-                        <p className="text-sm text-green-600">
+                        <p className="text-sm text-primary">
                           Sec {assignedTicket.section}, Seat{" "}
                           {assignedTicket.seat}
                         </p>
@@ -343,7 +343,7 @@ const TicketSelectionView: React.FC = () => {
             disabled={!ticketsAssigned}
             className={`flex items-center justify-center px-6 py-2 rounded-md font-medium ${
               ticketsAssigned
-                ? "bg-green-600 text-white hover:bg-green-700"
+                ? "bg-primary text-white hover:bg-primary"
                 : "bg-gray-200 text-gray-500 cursor-not-allowed"
             } transition-colors`}
           >

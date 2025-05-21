@@ -23,7 +23,7 @@ const Header: React.FC = () => {
   }, []);
 
   return (
-    <header className="bg-gradient-to-r from-green-700 to-green-900 text-white shadow-md">
+    <header className="bg-gradient-to-r from-primary to-blue-900 text-white shadow-md">
       <div className="container mx-auto px-4 py-4 flex items-center">
         {!isHome ? (
           <Link to="/" className="mr-4">
@@ -43,7 +43,7 @@ const Header: React.FC = () => {
           <div className="relative" ref={menuRef}>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="flex items-center space-x-1 px-3 py-2 rounded-md hover:bg-green-600 transition-colors"
+              className="flex items-center space-x-1 px-3 py-2 rounded-md hover:bg-primary transition-colors"
             >
               <span className="text-sm font-medium">My Account</span>
               <ChevronDown
@@ -60,7 +60,7 @@ const Header: React.FC = () => {
                   to="/"
                   className={`block px-4 py-2 text-sm ${
                     location.pathname === "/"
-                      ? "bg-green-50 text-green-700"
+                      ? "bg-blue-50 text-primary"
                       : "text-gray-700 hover:bg-gray-100"
                   }`}
                   onClick={() => setIsMenuOpen(false)}
@@ -71,7 +71,7 @@ const Header: React.FC = () => {
                   to="/contacts"
                   className={`block px-4 py-2 text-sm ${
                     location.pathname === "/contacts"
-                      ? "bg-green-50 text-green-700"
+                      ? "bg-blue-50 text-primary"
                       : "text-gray-700 hover:bg-gray-100"
                   }`}
                   onClick={() => setIsMenuOpen(false)}
@@ -85,7 +85,7 @@ const Header: React.FC = () => {
       </div>
 
       {!isHome && (
-        <div className="bg-green-800 py-2">
+        <div className="bg-blue-900 py-2">
           <div className="container mx-auto px-4">
             <div className="flex justify-center">
               <nav className="flex space-x-1 text-sm font-medium">
@@ -93,8 +93,8 @@ const Header: React.FC = () => {
                   to="/"
                   className={`px-3 py-1 rounded-md ${
                     location.pathname === "/"
-                      ? "bg-white text-green-900"
-                      : "text-green-100 hover:bg-green-700"
+                      ? "bg-white text-blue-900"
+                      : "text-secondary hover:bg-primary"
                   }`}
                 >
                   Events
@@ -103,8 +103,8 @@ const Header: React.FC = () => {
                   to={`/tickets/${eventId}`}
                   className={`px-3 py-1 rounded-md ${
                     location.pathname.includes("/tickets/")
-                      ? "bg-white text-green-900"
-                      : "text-green-100 hover:bg-green-700"
+                      ? "bg-white text-blue-900"
+                      : "text-secondary hover:bg-primary"
                   }`}
                 >
                   Assign
@@ -113,9 +113,9 @@ const Header: React.FC = () => {
                   to={`/preview/${eventId}`}
                   className={`px-3 py-1 rounded-md ${
                     location.pathname.includes("/preview/")
-                      ? "bg-white text-green-900"
+                      ? "bg-white text-blue-900"
                       : assignComplete
-                      ? "text-green-100 hover:bg-green-700"
+                      ? "text-secondary hover:bg-primary"
                       : "text-gray-400 cursor-not-allowed pointer-events-none"
                   }`}
                 >

@@ -39,7 +39,7 @@ const BuddyItem: React.FC<BuddyItemProps> = ({ buddy, availableTickets }) => {
 
       <div className="flex items-center">
         <select
-          className="block w-48 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+          className="block w-48 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           onChange={handleAssignTicket}
           value={assignedTickets[0] || ""}
         >
