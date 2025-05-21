@@ -1,8 +1,9 @@
 import React from "react";
 import { useTickets } from "../context/TicketsContext";
-import { Pencil, Send, Users } from "lucide-react";
+import { Send, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { BuddyContactCard } from "../components/BuddyContactCard";
+import { BuddyContactList } from "@/components/BuddyContactList";
 
 const ContactsView: React.FC = () => {
   const { buddies, groups } = useTickets();
@@ -35,39 +36,7 @@ const ContactsView: React.FC = () => {
 
       <div className="grid gap-6">
         {groups
-          .map((group) =>{ 
-            const groupBuddies = group.buddies.filter((buddyId) => buddies.find((b) => b.id === buddyId && b.isActive))
-            return (
-              <div
-                key={group.id}
-                className="bg-white rounded-lg shadow-sm overflow-hidden"
-              >
-                <div className="px-4 py-3 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
-                  <div className="flex items-center gap-1">
-                    <h3 className="font-medium text-gray-800">{group.name}</h3>
-                    <Link to={{ pathname: '/contacts/add-group', search: `?name=${group.name}`}}>
-                      <Pencil className="size-4 text-gray-500" />
-                    </Link>
-                  </div>
-                  <span className="text-sm text-gray-500">
-                    {groupBuddies.length} contact
-                    {groupBuddies.length !== 1 ? "s" : ""}
-                  </span>
-                </div>
-
-                <div className="divide-y divide-gray-200">
-                  {buddies
-                    .filter(
-                      (buddy) =>
-                        buddy.isActive && groupBuddies.includes(buddy.id)
-                    )
-                    .map((buddy) => (
-                      <BuddyContactCard key={buddy.id} buddy={buddy} />
-                    ))}
-                </div>
-              </div>
-            )
-          })}
+          .map((group) => <BuddyContactList key={group.id} group={group} />)}
       </div>
 
       {/* Buddies that are not in any group */}
@@ -75,8 +44,11 @@ const ContactsView: React.FC = () => {
         <div className="grid gap-6 mt-2">
           <div className="bg-white rounded-lg shadow-sm overflow-hidden">
             <div className="px-4 py-3 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
-              <div className="flex items-center">
+              <div className="flex items-center gap-1">
                 <h3 className="font-medium text-gray-800">Buddies</h3>
+                <span className="text-xs text-gray-500">
+                  (Unassigned)
+                </span>
               </div>
             </div>
 
@@ -104,7 +76,7 @@ const ContactsView: React.FC = () => {
             {buddies
               .filter((buddy) => !buddy.isActive)
               .map((buddy) => (
-                <BuddyContactCard key={buddy.id} buddy={buddy} />
+                <BuddyContactCard key={buddy.id} buddy={buddy} mode="edit"/>
               ))}
           </div>
         </div>

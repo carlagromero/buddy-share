@@ -8,9 +8,10 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 type BuddyContactCardProps = {
   buddy: Buddy
   isStandalone?: boolean
+  mode?: "view" | "edit"
 }
 
-export function BuddyContactCard({ buddy, isStandalone = false }: BuddyContactCardProps) {
+export function BuddyContactCard({ buddy, isStandalone = false, mode = "view" }: BuddyContactCardProps) {
   const { removeBuddy, groups, addBuddyToGroup } = useTickets();
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const buttonRef = useRef<HTMLDivElement>(null);
@@ -75,7 +76,7 @@ export function BuddyContactCard({ buddy, isStandalone = false }: BuddyContactCa
             </DropdownMenuContent>
           </DropdownMenu>
         )}
-        {!isStandalone && (
+        {!isStandalone && mode === "edit" && (
           <div
             ref={buttonRef}
             className="flex items-center gap-1 relative"

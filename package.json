@@ -12,7 +12,7 @@
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.15",
     "boring-avatars": "^1.11.2",
-    "lucide-react": "^0.344.0",
+    "lucide-react": "^0.511.0",
     "react": "^18.3.1",
     "react-aria-components": "^1.9.0",
     "react-dom": "^18.3.1",
