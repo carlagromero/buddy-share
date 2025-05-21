@@ -12,6 +12,7 @@ import PreviewShareView from "./pages/PreviewShareView";
 import { TicketsProvider } from "./context/TicketsContext";
 import InviteContactView from "./pages/InviteContactView";
 import { CreateGroupView } from "./pages/CreateGroupView";
+import { Toaster } from "react-hot-toast";
 
 const MainLayout = () => (
   <div className="min-h-screen bg-gray-50">
@@ -36,6 +37,7 @@ function App() {
           </Route>
           <Route path="/contacts/add-group" element={<CreateGroupView />} />
         </Routes>
+        <Toaster position="top-right" />
       </TicketsProvider>
     </Router>
   );

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Send } from "lucide-react";
+import { ArrowLeft, CheckCircle, Send } from "lucide-react";
 import InputMask from "react-input-mask";
 import { useTickets } from "../context/TicketsContext";
+import toast from "react-hot-toast";
 
 const InviteContactView: React.FC = () => {
   const navigate = useNavigate();
@@ -25,6 +26,17 @@ const InviteContactView: React.FC = () => {
       addBuddy({
         phone: phoneNumber,
         isActive: false,
+      });
+
+      toast.success("Invitation sent!", {
+        duration: 3000,
+        icon: <CheckCircle className="bg-white text-primary" size={18} />,
+        style: {
+          background: "#ffffff",
+          color: "#2c3660",
+          padding: "16px",
+          borderRadius: "8px",
+        },
       });
 
       navigate("/contacts");
@@ -63,6 +75,7 @@ const InviteContactView: React.FC = () => {
               onChange={handlePhoneChange}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-800 focus:border-primary outline-none"
               placeholder="(555) 555-5555"
+              type="tel"
             />
             <p className="mt-2 text-sm text-gray-500">
               We'll send an invitation to this number
