@@ -154,7 +154,7 @@ export const mockBuddies: Buddy[] = [
   },
   {
     id: "3",
-    // name: faker.person.firstName('male'),
+    name: faker.person.firstName('male'),
     phone: faker.phone.number({ style: "national" }),
     avatar: "",
     isActive: true,
@@ -168,7 +168,7 @@ export const mockBuddies: Buddy[] = [
   },
   {
     id: "5",
-    // name: faker.person.firstName('male'),
+    name: faker.person.firstName('male'),
     phone: faker.phone.number({ style: "national" }),
     avatar: "",
     isActive: true,
