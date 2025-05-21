@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Share2, Send } from "lucide-react";
+import { Users, Send } from "lucide-react";
 import { Event } from "../types";
 import { useTickets } from "../context/TicketsContext";
 import { formatDate } from "../utils/helpers";
@@ -48,7 +48,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
             className="flex items-center justify-center px-4 py-2 bg-blue-700 rounded-md text-white font-medium hover:bg-blue-700 transition-colors"
             onClick={handleBuddyShareClick}
           >
-            <Share2 size={18} className="mr-2" />
+            <Users size={18} className="mr-2" />
             BuddyShare
           </Link>
         </div>
