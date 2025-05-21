@@ -190,14 +190,14 @@ const TicketSelectionView: React.FC = () => {
                     disabled={isGroupAssigned}
                     key={group.id}
                     onClick={() => handleBuddyClick(group.id)}
-                    className={`flex items-center p-3 rounded-lg border transition-all relative ${
+                    className={`flex flex-col p-3 rounded-lg border transition-all relative ${
                       selectedBuddyId === group.id ||
                       (selectedGroupId === group.id && groupBuddies.length > 0)
                         ? "border-blue-500 bg-blue-50"
                         : "border-gray-200 hover:border-gray-300 bg-white"
                     }`}
                   >
-                    <div className="flex flex-wrap -space-x-3 justify-end">
+                    <div className="flex -space-x-[0.6rem]">
                       {group.buddies.slice(0, 4).map((buddyId) => {
                         const item = buddies.find((b) => b.id === buddyId);
                         if (!item || !item.isActive) return null;
@@ -207,24 +207,24 @@ const TicketSelectionView: React.FC = () => {
                             key={item.id}
                             src={item.avatar || getAvatarSrc(item.name)}
                             alt={item.name}
-                            className="w-8 h-8 rounded-full border-2 border-white"
+                            className="w-8 h-8 border-2 border-white rounded-full"
                           />
                         );
                       })}
                     </div>
 
-                    <div className="ml-3 text-left">
+                    <div className="text-left">
                       <h4 className="font-medium text-gray-800">
                         {group.name}
                       </h4>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-xs text-gray-500">
                         {group.buddies
                           .map((buddyId) =>
                             buddies.find(
                               (item) => item.id === buddyId && item.isActive
                             )
                           )
-                          .filter(Boolean)
+                          .filter(buddy => buddy?.name)
                           .map((b) => b!.name)
                           .join(", ")}
                       </p>
