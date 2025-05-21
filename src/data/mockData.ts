@@ -1,3 +1,5 @@
+import { faker } from '@faker-js/faker';
+
 import { Event, Ticket, Buddy, Group } from "../types";
 
 export const mockEvents: Event[] = [
@@ -129,57 +131,87 @@ export const mockTickets: Ticket[] = [
 
 export const mockBuddies: Buddy[] = [
   {
-    id: "1",
-    name: "Mike",
-    relationship: "Husband",
+    id: '1',
+    name: faker.person.firstName('male'),
+    phone: faker.phone.number({ style: 'national' }),
     avatar: "https://randomuser.me/api/portraits/men/32.jpg",
     isActive: true,
   },
   {
     id: "2",
-    name: "Jen",
-    relationship: "Sister",
+    name: faker.person.firstName('female'),
+    phone: faker.phone.number({ style: 'national' }),
     avatar: "https://randomuser.me/api/portraits/women/44.jpg",
     isActive: true,
   },
   {
     id: "3",
-    name: "Carlos",
-    relationship: "Friend",
-    // avatar: "https://randomuser.me/api/portraits/men/67.jpg",
+    name: faker.person.firstName('male'),
+    phone: faker.phone.number({ style: 'national' }),
     avatar: "",
     isActive: true,
   },
   {
     id: "4",
-    name: "Taylor",
-    relationship: "Coworker",
+    name: faker.person.firstName('female'),
+    phone: faker.phone.number({ style: 'national' }),
     avatar: "https://randomuser.me/api/portraits/women/23.jpg",
     isActive: false,
   },
-  // {
-  //   id: '5',
-  //   name: 'Jordan',
-  //   relationship: 'Friend',
-  //   avatar: 'https://randomuser.me/api/portraits/men/55.jpg',
-  // }
+  {
+    id: "5",
+    name: faker.person.firstName('male'),
+    phone: faker.phone.number({ style: 'national' }),
+    avatar: "",
+    isActive: true,
+  },
+  {
+    id: "6",
+    name: faker.person.firstName('male'),
+    phone: faker.phone.number({ style: 'national' }),
+    avatar: "https://randomuser.me/api/portraits/men/39.jpg",
+    isActive: true,
+  },
+  {
+    id: "7",
+    name: faker.person.firstName('male'),
+    phone: faker.phone.number({ style: 'national' }),
+    avatar: "https://randomuser.me/api/portraits/men/60.jpg",
+    isActive: true,
+  },
+  {
+    id: "8",
+    name: faker.person.firstName('male'),
+    phone: faker.phone.number({ style: 'national' }),
+    avatar: "",
+    isActive: true,
+  },
+  {
+    id: "9",
+    name: faker.person.firstName('female'),
+    phone: faker.phone.number({ style: 'national' }),
+    avatar: "https://randomuser.me/api/portraits/women/1.jpg",
+    isActive: true,
+  },
+  {
+    id: "10",
+    name: faker.person.firstName('male'),
+    phone: faker.phone.number({ style: 'national' }),
+    avatar: "",
+    isActive: false,
+  },
 ];
 
 export const mockGroups: Group[] = [
   {
     id: "1",
     name: "Family",
-    buddies: ["1", "2"],
+    buddies: ["1", "2", "3"],
   },
   {
     id: "2",
     name: "Friends",
-    buddies: ["3"],
-  },
-  {
-    id: "3",
-    name: "Work",
-    buddies: ["4"],
+    buddies: ["5", "6", "7"],
   },
 ];
 

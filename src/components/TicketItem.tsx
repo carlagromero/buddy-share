@@ -67,7 +67,7 @@ const TicketItem: React.FC<TicketItemProps> = ({
               </button>
             )}
             <img
-              src={buddy.avatar || getAvatarSrc(buddy.name)}
+              src={buddy.avatar || getAvatarSrc(buddy.name || '')}
               alt={buddy.name}
               className="w-8 h-8 rounded-full mr-2"
             />
