@@ -29,8 +29,8 @@ const SeatMap: React.FC<SeatMapProps> = ({ tickets, section }) => {
 
   return (
     <div className="bg-gray-100 rounded-lg p-4 mb-6">
-      <div className="w-[50%] mb-6 rounded flex items-center justify-center justify-self-center">
-        <img src={logo} alt="Logo" />
+      <div className="w-full flex justify-center mb-6">
+        <img src={logo} alt="Logo" className="max-w-[50%]" />
       </div>
 
       <h3 className="text-center font-bold mb-3">Section {section}</h3>

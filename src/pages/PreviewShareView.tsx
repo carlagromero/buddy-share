@@ -13,8 +13,6 @@ const PreviewShareView: React.FC = () => {
     selectedTickets,
     getTicketsForEvent,
     assignments,
-    message,
-    setMessage,
     completeShare,
   } = useTickets();
 
