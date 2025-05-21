@@ -32,7 +32,7 @@ const BuddyItem: React.FC<BuddyItemProps> = ({ buddy, availableTickets }) => {
         />
         <div>
           <h4 className="font-medium">{buddy.name}</h4>
-          <p className="text-sm text-gray-600">{buddy.relationship}</p>
+          <p className="text-sm text-gray-600">{buddy.phone}</p>
         </div>
       </div>
 

@@ -21,9 +21,9 @@ export interface Ticket {
 
 export interface Buddy {
   id: string;
-  name: string;
-  relationship: string;
-  avatar: string;
+  name?: string;
+  phone: string;
+  avatar?: string;
   isActive: boolean;
 }
 

@@ -277,7 +277,7 @@ const TicketSelectionView: React.FC = () => {
                         </p>
                       ) : (
                         <p className="text-sm text-gray-500">
-                          {buddy.relationship}
+                          {buddy.phone}
                         </p>
                       )}
                     </div>

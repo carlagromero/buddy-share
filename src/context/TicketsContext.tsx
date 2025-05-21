@@ -29,6 +29,9 @@ interface TicketsContextType {
   setModeView: (modeView: ModeView) => void;
   resetState: () => void;
   addBuddy: (buddy: Omit<Buddy, "id">) => void;
+  removeBuddy: (buddyId: string) => void;
+  createGroup: (newGroup: Omit<Group, "id">, groupName?: string) => void;
+  addBuddyToGroup: (buddyId: string, groupId: string) => void;
 }
 
 const TicketsContext = createContext<TicketsContextType | undefined>(undefined);
@@ -39,7 +42,7 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
   const [events] = useState<Event[]>(mockEvents);
   const [tickets] = useState<Ticket[]>(mockTickets);
   const [buddies, setBuddies] = useState<Buddy[]>(mockBuddies);
-  const [groups] = useState<Group[]>(mockGroups);
+  const [groups, setGroups] = useState<Group[]>(mockGroups);
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
   const [selectedTickets, setSelectedTickets] = useState<string[]>([]);
   const [assignments, setAssignments] = useState<
@@ -135,13 +138,59 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
     const newBuddy: Buddy = {
       id: Math.random().toString(),
       name: buddy.name,
-      relationship: buddy.relationship,
+      phone: buddy.phone,
       avatar: buddy.avatar,
       isActive: buddy.isActive,
     };
 
     setBuddies((prevBuddies) => [...prevBuddies, newBuddy]);
   };
+
+  const createGroup = (group: Omit<Group, "id">, groupName?: string) => {
+    const newGroup: Group = {
+      id: Math.random().toString(),
+      name: group.name,
+      buddies: [],
+    };
+
+    setGroups((prevGroups) => {
+      const existingGroupIndex = groups.findIndex(group => group.name === groupName)
+      if(existingGroupIndex >= 0) {
+        const newGroups = [...prevGroups]
+        newGroups[existingGroupIndex] = {
+          ...newGroups[existingGroupIndex],
+          name: newGroup.name
+        }
+        return newGroups
+      }
+
+      return [...prevGroups, newGroup]
+    });
+  }
+
+  const addBuddyToGroup = (buddyId: string, groupId: string) => {
+    setGroups(prevGroups => {
+      const groupIndex = prevGroups.findIndex(group => group.id === groupId)
+      if (groupIndex !== -1) {
+        const newGroups = [...prevGroups]
+        newGroups[groupIndex].buddies.push(buddyId)
+        return newGroups
+      }
+      return prevGroups
+    })
+  }
+
+  const removeBuddy = (buddyId: string) => {
+    setGroups(prevGroups => {
+      const groupIndex = prevGroups.findIndex(group => group.buddies.includes(buddyId))
+      if (groupIndex !== -1) {
+        const newGroups = [...prevGroups]
+        newGroups[groupIndex].buddies = newGroups[groupIndex].buddies.filter(id => id !== buddyId)
+        return newGroups
+      }
+      return prevGroups
+    })
+  }
 
   return (
     <TicketsContext.Provider
@@ -167,6 +216,9 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
         resetState,
         setModeView,
         addBuddy,
+        removeBuddy,
+        createGroup,
+        addBuddyToGroup
       }}
     >
       {children}

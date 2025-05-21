@@ -11,6 +11,7 @@ import TicketSelectionView from "./pages/TicketSelectionView";
 import PreviewShareView from "./pages/PreviewShareView";
 import { TicketsProvider } from "./context/TicketsContext";
 import InviteContactView from "./pages/InviteContactView";
+import { CreateGroupView } from "./pages/CreateGroupView";
 
 const MainLayout = () => (
   <div className="min-h-screen bg-gray-50">
@@ -33,6 +34,7 @@ function App() {
             <Route path="/tickets/:eventId" element={<TicketSelectionView />} />
             <Route path="/preview/:eventId" element={<PreviewShareView />} />
           </Route>
+          <Route path="/contacts/add-group" element={<CreateGroupView />} />
         </Routes>
       </TicketsProvider>
     </Router>
