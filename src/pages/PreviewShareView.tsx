@@ -61,7 +61,7 @@ const PreviewShareView: React.FC = () => {
           BuddyShare Complete!
         </h2>
         <p className="text-gray-600 mb-6">
-          Tickets have been shared with your buddies.
+          Tickets has been shared and notifications sent.
         </p>
         <p className="text-sm text-gray-500">Redirecting to your events...</p>
       </div>
