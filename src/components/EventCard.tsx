@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Share2, Send } from "lucide-react";
 import { Event } from "../types";
 import { useTickets } from "../context/TicketsContext";
+import { formatDate } from "../utils/helpers";
 
 interface EventCardProps {
   event: Event;
@@ -10,15 +11,6 @@ interface EventCardProps {
 
 const EventCard: React.FC<EventCardProps> = ({ event }) => {
   const { setSelectedEventId } = useTickets();
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-    });
-  };
 
   const handleBuddyShareClick = () => {
     setSelectedEventId(event.id);

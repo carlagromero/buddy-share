@@ -2,6 +2,7 @@ import React from "react";
 import { Ticket } from "../types";
 import { useTickets } from "../context/TicketsContext";
 import { Info, Ticket as TicketIcon, X } from "lucide-react";
+import { getAvatarSrc } from "../utils/helpers";
 
 interface TicketItemProps {
   ticket: Ticket;
@@ -114,7 +115,7 @@ const TicketItem: React.FC<TicketItemProps> = ({
               </button>
             )}
             <img
-              src={buddy.avatar}
+              src={buddy.avatar || getAvatarSrc(buddy.name)}
               alt={buddy.name}
               className="w-8 h-8 rounded-full mr-2"
             />

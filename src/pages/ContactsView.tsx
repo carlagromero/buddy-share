@@ -2,6 +2,7 @@ import React from "react";
 import { useTickets } from "../context/TicketsContext";
 import { Send, UserRound, Users } from "lucide-react";
 import { Link } from "react-router-dom";
+import { getAvatarSrc } from "../utils/helpers";
 
 const ContactsView: React.FC = () => {
   const { buddies, groups } = useTickets();
@@ -55,7 +56,7 @@ const ContactsView: React.FC = () => {
                     >
                       <div className="flex items-center">
                         <img
-                          src={buddy.avatar}
+                          src={buddy.avatar || getAvatarSrc(buddy.name)}
                           alt={buddy.name}
                           className="w-10 h-10 rounded-full object-cover"
                         />
@@ -96,7 +97,7 @@ const ContactsView: React.FC = () => {
                   <div className="flex items-center">
                     {buddy.avatar ? (
                       <img
-                        src={buddy.avatar}
+                        src={buddy.avatar || getAvatarSrc(buddy.name)}
                         alt={buddy.name}
                         className="w-10 h-10 rounded-full object-cover"
                       />

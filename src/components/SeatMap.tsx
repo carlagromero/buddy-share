@@ -1,6 +1,7 @@
 import React from "react";
 import { Ticket } from "../types";
 import { useTickets } from "../context/TicketsContext";
+import { getAvatarSrc } from "../utils/helpers";
 
 interface SeatMapProps {
   tickets: Ticket[];
@@ -62,7 +63,7 @@ const SeatMap: React.FC<SeatMapProps> = ({ tickets, section }) => {
                     {buddy && (
                       <div className="absolute -bottom-6 w-8 h-8 rounded-full overflow-hidden border-2 border-white">
                         <img
-                          src={buddy.avatar}
+                          src={buddy.avatar || getAvatarSrc(buddy.name)}
                           alt={buddy.name}
                           className="w-full h-full object-cover"
                         />

@@ -4,6 +4,7 @@ import { ArrowLeft, Send } from "lucide-react";
 import InputMask from "react-input-mask";
 import { useTickets } from "../context/TicketsContext";
 import { mockNames } from "../data/mockData";
+import { getAvatarSrc } from "../utils/helpers";
 
 const getRandomItem = <T,>(arr: T[]): T =>
   arr[Math.floor(Math.random() * arr.length)];
@@ -25,15 +26,12 @@ const InviteContactView: React.FC = () => {
     e.preventDefault();
     if (isValid) {
       const fullName = getRandomItem(mockNames);
-      const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(
-        fullName
-      )}&background=16A34A&color=ffffff&bold=true`;
 
       console.log("Sending invitation to:", phoneNumber);
 
       addBuddy({
         name: fullName,
-        avatar: avatarUrl,
+        avatar: getAvatarSrc(fullName),
         relationship: "Friend",
         isActive: false,
       });

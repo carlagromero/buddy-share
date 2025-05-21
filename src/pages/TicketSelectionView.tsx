@@ -3,6 +3,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { ArrowRight, CheckCircle, Ticket } from "lucide-react";
 import TicketItem from "../components/TicketItem";
 import { useTickets } from "../context/TicketsContext";
+import { formatDate, getAvatarSrc } from "../utils/helpers";
 
 const TicketSelectionView: React.FC = () => {
   const { eventId } = useParams<{ eventId: string }>();
@@ -116,9 +117,14 @@ const TicketSelectionView: React.FC = () => {
   return (
     <div className="pb-24">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">
-          {event.team} vs. {event.opponent}
-        </h2>
+        <div className="mb-4">
+          <h2 className="text-2xl font-bold text-gray-800">
+            {event.team} vs. {event.opponent}
+          </h2>
+          <p className="text-gray-800 text-sm">
+            {formatDate(event.date)} • {event.time} • {event.venue}
+          </p>
+        </div>
         <p className="text-gray-600">
           Select a{" "}
           <span className="font-semibold">
@@ -199,7 +205,7 @@ const TicketSelectionView: React.FC = () => {
                         return (
                           <img
                             key={item.id}
-                            src={item.avatar}
+                            src={item.avatar || getAvatarSrc(item.name)}
                             alt={item.name}
                             className="w-8 h-8 rounded-full border-2 border-white"
                           />
@@ -262,7 +268,7 @@ const TicketSelectionView: React.FC = () => {
                     }`}
                   >
                     <img
-                      src={buddy.avatar}
+                      src={buddy.avatar || getAvatarSrc(buddy.name)}
                       alt={buddy.name}
                       className="w-10 h-10 rounded-full object-cover"
                     />
