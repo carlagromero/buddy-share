@@ -54,8 +54,8 @@ const PreviewShareView: React.FC = () => {
   if (isShared) {
     return (
       <div className="flex flex-col items-center justify-center py-12">
-        <div className="bg-blue-100 rounded-full p-4 mb-4">
-          <CheckCircle2 size={48} className="text-blue-700" />
+        <div className="bg-secondary rounded-full p-4 mb-4">
+          <CheckCircle2 size={48} className="text-primary" />
         </div>
         <h2 className="text-2xl font-bold text-gray-800 mb-2">
           BuddyShare Complete!
@@ -102,7 +102,7 @@ const PreviewShareView: React.FC = () => {
         <div className="container mx-auto flex justify-end">
           <button
             onClick={handleShare}
-            className="flex items-center justify-center px-8 py-3 bg-blue-700 rounded-md text-white font-medium hover:bg-blue-700 transition-colors"
+            className="flex items-center justify-center px-8 py-3 bg-primary rounded-md text-white font-medium hover:bg-primary transition-colors"
           >
             Share Now
             <Send size={18} className="ml-2" />

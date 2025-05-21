@@ -40,7 +40,7 @@ const TicketItem: React.FC<TicketItemProps> = ({
             <div className="flex items-center gap-2">
               <span className="font-medium">Section {ticket.section}</span>
               {ticket.isCombo && (isEditable || isComboBoxSelected) && (
-                <div className="flex items-center bg-blue-50 text-sm text-blue-700 gap-1 px-1 rounded">
+                <div className="flex items-center bg-blue-50 text-sm text-primary gap-1 px-1 rounded">
                   <TicketIcon size={16} />
                   <span>{ticket.comboSize} events</span>
                 </div>
@@ -77,7 +77,7 @@ const TicketItem: React.FC<TicketItemProps> = ({
       </div>
 
       {buddy && isEditable && ticket.isCombo && (
-        <label className="mt-3 flex items-center gap-2 cursor-pointer text-blue-700 text-sm">
+        <label className="mt-3 flex items-center gap-2 cursor-pointer text-primary text-sm">
           <input
             type="checkbox"
             className="sr-only"
@@ -87,7 +87,7 @@ const TicketItem: React.FC<TicketItemProps> = ({
           <div
             className={`h-5 w-5 rounded flex items-center justify-center transition-colors border ${
               isComboBoxSelected
-                ? "bg-blue-700 border-blue-700"
+                ? "bg-primary border-primary"
                 : "bg-white border-gray-300"
             }`}
           >
@@ -112,7 +112,7 @@ const TicketItem: React.FC<TicketItemProps> = ({
       )}
 
       {!isEditable && isComboBoxSelected && (
-        <div className="mt-2 flex items-center gap-2 text-blue-700 text-sm">
+        <div className="mt-2 flex items-center gap-2 text-primary text-sm">
           <AlertTriangle size={16} />{" "}
           <span>You’re about to transfer all season tickets</span>
         </div>
