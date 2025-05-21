@@ -54,7 +54,7 @@ const SeatMap: React.FC<SeatMapProps> = ({ tickets, section }) => {
                     className={`relative w-10 h-10 rounded-md flex items-center justify-center shadow-sm
                       ${
                         assignedBuddy
-                          ? "bg-green-100 border border-green-500"
+                          ? "bg-blue-100 border border-blue-500"
                           : "bg-white border border-gray-300"
                       }`}
                   >

@@ -45,7 +45,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
 
           <Link
             to={`/tickets/${event.id}`}
-            className="flex items-center justify-center px-4 py-2 bg-green-600 rounded-md text-white font-medium hover:bg-green-700 transition-colors"
+            className="flex items-center justify-center px-4 py-2 bg-blue-700 rounded-md text-white font-medium hover:bg-blue-700 transition-colors"
             onClick={handleBuddyShareClick}
           >
             <Share2 size={18} className="mr-2" />

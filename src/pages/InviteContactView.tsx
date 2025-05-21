@@ -70,7 +70,7 @@ const InviteContactView: React.FC = () => {
               mask="(999) 999-9999"
               value={phoneNumber}
               onChange={handlePhoneChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-800 focus:border-green-600 outline-none"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-800 focus:border-blue-700 outline-none"
               placeholder="(555) 555-5555"
             />
             <p className="mt-2 text-sm text-gray-500">
@@ -83,7 +83,7 @@ const InviteContactView: React.FC = () => {
             disabled={!isValid}
             className={`w-full flex items-center justify-center px-4 py-2 rounded-md font-medium ${
               isValid
-                ? "bg-green-600 text-white hover:bg-green-700"
+                ? "bg-blue-700 text-white hover:bg-blue-700"
                 : "bg-gray-200 text-gray-500 cursor-not-allowed"
             } transition-colors`}
           >
