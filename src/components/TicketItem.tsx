@@ -1,7 +1,8 @@
 import React from "react";
 import { Ticket } from "../types";
 import { useTickets } from "../context/TicketsContext";
-import { Info, Ticket as TicketIcon, X } from "lucide-react";
+import { AlertTriangle, Ticket as TicketIcon, X } from "lucide-react";
+import { getAvatarSrc } from "../utils/helpers";
 
 interface TicketItemProps {
   ticket: Ticket;
@@ -35,67 +36,19 @@ const TicketItem: React.FC<TicketItemProps> = ({
     >
       <div className="flex justify-between items-center">
         <div className="flex gap-3">
-          {isEditable && ticket.isCombo && (
-            <label className="relative flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                className="sr-only"
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-                onChange={(e) => {
-                  setComboBoxForTicket(ticket.id, e.target.checked);
-                }}
-              />
-              <div
-                className={`h-5 w-5 rounded flex items-center justify-center transition-colors border ${
-                  isComboBoxSelected
-                    ? "bg-green-600 border-green-600"
-                    : "bg-white border-gray-300"
-                }`}
-              >
-                <svg
-                  className={`h-4 w-4 text-white ${
-                    isComboBoxSelected ? "block" : "hidden"
-                  }`}
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </div>
-            </label>
-          )}
           <div className="flex flex-col">
-            <span className="font-medium">Section {ticket.section}</span>
+            <div className="flex items-center gap-2">
+              <span className="font-medium">Section {ticket.section}</span>
+              {ticket.isCombo && (isEditable || isComboBoxSelected) && (
+                <div className="flex items-center bg-green-50 text-sm text-green-600 gap-1 px-1 rounded">
+                  <TicketIcon size={16} />
+                  <span>{ticket.comboSize} events</span>
+                </div>
+              )}
+            </div>
             <span className="text-gray-600 text-sm">
               Row {ticket.row}, Seat {ticket.seat}
             </span>
-            {ticket.isCombo && (
-              <div className="flex flex-col gap-1">
-                {(isEditable || isComboBoxSelected) && (
-                  <div className="flex self-start bg-green-50 text-sm text-green-600 gap-2 px-1">
-                    <span>
-                      <TicketIcon size={20} />
-                    </span>
-                    <span>{ticket.comboSize} tickets</span>
-                  </div>
-                )}
-
-                {isComboBoxSelected && (
-                  <div className="flex items-center gap-1 text-xs text-gray-400">
-                    <Info size={14} />{" "}
-                    <span>Combo tickets will be transferred</span>
-                  </div>
-                )}
-              </div>
-            )}
           </div>
         </div>
 
@@ -114,7 +67,7 @@ const TicketItem: React.FC<TicketItemProps> = ({
               </button>
             )}
             <img
-              src={buddy.avatar}
+              src={buddy.avatar || getAvatarSrc(buddy.name)}
               alt={buddy.name}
               className="w-8 h-8 rounded-full mr-2"
             />
@@ -122,6 +75,48 @@ const TicketItem: React.FC<TicketItemProps> = ({
           </div>
         )}
       </div>
+
+      {buddy && isEditable && ticket.isCombo && (
+        <label className="mt-3 flex items-center gap-2 cursor-pointer text-green-700 text-sm">
+          <input
+            type="checkbox"
+            className="sr-only"
+            onClick={(e) => e.stopPropagation()}
+            onChange={(e) => setComboBoxForTicket(ticket.id, e.target.checked)}
+          />
+          <div
+            className={`h-5 w-5 rounded flex items-center justify-center transition-colors border ${
+              isComboBoxSelected
+                ? "bg-green-600 border-green-600"
+                : "bg-white border-gray-300"
+            }`}
+          >
+            <svg
+              className={`h-4 w-4 text-white ${
+                isComboBoxSelected ? "block" : "hidden"
+              }`}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="3"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </div>
+          <span>Transfer entire season tickets</span>
+        </label>
+      )}
+
+      {!isEditable && isComboBoxSelected && (
+        <div className="mt-2 flex items-center gap-2 text-green-700 text-sm">
+          <AlertTriangle size={16} />{" "}
+          <span>You’re about to transfer all season tickets</span>
+        </div>
+      )}
     </div>
   );
 };

@@ -13,8 +13,6 @@ const PreviewShareView: React.FC = () => {
     selectedTickets,
     getTicketsForEvent,
     assignments,
-    message,
-    setMessage,
     completeShare,
   } = useTickets();
 
@@ -99,17 +97,6 @@ const PreviewShareView: React.FC = () => {
           </div>
         </div>
       ))}
-
-      <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
-        <h3 className="font-medium mb-2">Add a Message (Optional)</h3>
-        <textarea
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Enjoy the tickets! Hope it’s a great one!"
-          className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
-          rows={3}
-        ></textarea>
-      </div>
 
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
         <div className="container mx-auto flex justify-end">

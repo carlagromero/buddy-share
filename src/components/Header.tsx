@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { Users, ArrowLeft, ChevronDown } from "lucide-react";
+import { ArrowLeft, ChevronDown } from "lucide-react";
 
 const Header: React.FC = () => {
   const location = useLocation();
@@ -31,9 +31,12 @@ const Header: React.FC = () => {
           </Link>
         ) : null}
 
-        <div className="flex items-center">
-          <Users size={28} className="mr-2" />
-          <h1 className="text-xl font-bold">BuddyShare</h1>
+        <div className="flex gap-2 items-center">
+          <img
+            src="https://pachtml-production.s3-us-west-2.amazonaws.com/www/luca-multi/branding/logo.png"
+            className="w-8"
+          />
+          <h1 className="text-xl font-bold">Luca</h1>
         </div>
 
         <div className="ml-auto">

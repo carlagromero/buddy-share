@@ -1,6 +1,7 @@
 import React from "react";
 import { Buddy, Ticket } from "../types";
 import { useTickets } from "../context/TicketsContext";
+import { getAvatarSrc } from "../utils/helpers";
 
 interface BuddyItemProps {
   buddy: Buddy;
@@ -26,7 +27,7 @@ const BuddyItem: React.FC<BuddyItemProps> = ({ buddy, availableTickets }) => {
     <div className="flex items-center justify-between border-b border-gray-200 py-3">
       <div className="flex items-center">
         <img
-          src={buddy.avatar}
+          src={buddy.avatar || getAvatarSrc(buddy.name)}
           alt={buddy.name}
           className="w-10 h-10 rounded-full mr-3"
         />
