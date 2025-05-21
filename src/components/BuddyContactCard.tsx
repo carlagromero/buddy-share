@@ -59,7 +59,7 @@ export function BuddyContactCard({ buddy, isStandalone = false, mode = "view" }:
         </div>
       </div>
       <div className="flex items-center gap-2">
-        {buddy.isActive && isStandalone && (
+        {buddy.isActive && isStandalone && groups.length > 0 && (
           <DropdownMenu>
             <DropdownMenuTrigger>
               <UserPlus className="size-4 text-gray-500" />

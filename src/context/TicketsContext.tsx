@@ -32,6 +32,7 @@ interface TicketsContextType {
   removeBuddy: (buddyId: string) => void;
   createGroup: (newGroup: Omit<Group, "id">, groupName?: string) => void;
   addBuddyToGroup: (buddyId: string, groupId: string) => void;
+  removeGroup: (group: Group) => void;
 }
 
 const TicketsContext = createContext<TicketsContextType | undefined>(undefined);
@@ -181,15 +182,22 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
   }
 
   const removeBuddy = (buddyId: string) => {
-    setGroups(prevGroups => {
-      const groupIndex = prevGroups.findIndex(group => group.buddies.includes(buddyId))
-      if (groupIndex !== -1) {
-        const newGroups = [...prevGroups]
-        newGroups[groupIndex].buddies = newGroups[groupIndex].buddies.filter(id => id !== buddyId)
-        return newGroups
-      }
-      return prevGroups
-    })
+    const groupIndex = groups.findIndex(group => group.buddies.includes(buddyId))
+    if (groupIndex !== -1) {
+      const newGroups = [...groups]
+      newGroups[groupIndex].buddies = newGroups[groupIndex].buddies.filter(id => id !== buddyId)
+      setGroups(newGroups)
+      return
+    }
+    setBuddies(prevBuddies => prevBuddies.filter(buddy => buddy.id !== buddyId))
+  }
+
+  const removeGroup = (group: Group) => {
+    for(const buddyId of group.buddies) {
+      removeBuddy(buddyId)
+    }
+
+    setGroups(prevGroups => prevGroups.filter(g => g.id !== group.id))
   }
 
   return (
@@ -218,7 +226,8 @@ export const TicketsProvider: React.FC<{ children: React.ReactNode }> = ({
         addBuddy,
         removeBuddy,
         createGroup,
-        addBuddyToGroup
+        addBuddyToGroup,
+        removeGroup
       }}
     >
       {children}

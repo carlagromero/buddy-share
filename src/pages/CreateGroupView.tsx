@@ -13,16 +13,18 @@ export function CreateGroupView() {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    createGroup({
-      name: formValues.name,
-      buddies: []
-    }, searchParams.get('name') || undefined)
-    navigate('/contacts')
+    if(formValues.name.length > 0) {
+      createGroup({
+        name: formValues.name,
+        buddies: []
+      }, searchParams.get('name') || undefined)
+      navigate('/contacts')
+    }
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-gradient-to-r from-green-700 to-green-900 text-white shadow-md p-4 flex items-center">
+      <header className="bg-gradient-to-r from-primary to-blue-900 text-white shadow-md p-4 flex items-center">
         <ChevronLeft className='size-6' onClick={() => navigate(-1)}/>
         <h2 className="text-xl font-bold mx-auto">Create Group</h2>
       </header>
@@ -32,7 +34,7 @@ export function CreateGroupView() {
             <label htmlFor="name" className='block text-sm font-medium text-gray-700'>Name*</label>
             <input
               type="text"
-              className='w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-800 focus:border-green-600 outline-none'
+              className='w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary outline-none'
               id="name"
               name="name"
               value={formValues.name}
@@ -42,7 +44,7 @@ export function CreateGroupView() {
 
           <button
             type="submit"
-            className={`w-full flex items-center justify-center px-4 py-2 rounded-md font-medium bg-green-600 text-white hover:bg-green-700 transition-colors`}
+            className={`w-full flex items-center justify-center px-4 py-2 rounded-md font-medium bg-primary text-white hover:bg-blue-900 transition-colors`}
           >
             Create
           </button>

@@ -19,7 +19,7 @@ const ContactsView: React.FC = () => {
         <div className="flex items-center gap-1">
           <Link
             to="/contacts/add-group"
-            className="flex items-center px-3 py-2 border border-green-600 text-green-600 rounded-md hover:bg-green-600 hover:text-white transition-colors"
+            className="flex items-center px-3 py-2 border border-primary text-primary rounded-md hover:bg-primary hover:text-white transition-colors"
           >
             <Users  className="size-4 mr-2" />
             Create Group

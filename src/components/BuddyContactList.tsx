@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { flushSync } from "react-dom";
 
 export function BuddyContactList({ group }: { group: Group }) {
-  const { buddies, createGroup } = useTickets();
+  const { buddies, createGroup, removeGroup } = useTickets();
   const [mode, setMode] = useState<"view" | "edit">("view");
   const [name, setName] = useState(group.name);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -38,7 +38,7 @@ export function BuddyContactList({ group }: { group: Group }) {
             <input 
               ref={inputRef}
               type="text"
-              className='w-full px-2 border border-gray-300 rounded-md focus:ring-green-800 focus:border-green-600 outline-none'
+              className='w-full px-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary outline-none'
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -58,7 +58,7 @@ export function BuddyContactList({ group }: { group: Group }) {
               }}>
                 Edit
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => removeGroup(group)}>
                 Delete
               </DropdownMenuItem>
             </DropdownMenuContent>
