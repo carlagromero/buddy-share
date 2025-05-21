@@ -2,6 +2,7 @@ import React from "react";
 import { Ticket } from "../types";
 import { useTickets } from "../context/TicketsContext";
 import { getAvatarSrc } from "../utils/helpers";
+import logo from "../assets/images/seats.png"; // si tenés alias "@" para src
 
 interface SeatMapProps {
   tickets: Ticket[];
@@ -28,18 +29,17 @@ const SeatMap: React.FC<SeatMapProps> = ({ tickets, section }) => {
 
   return (
     <div className="bg-gray-100 rounded-lg p-4 mb-6">
-      <h3 className="text-center font-bold mb-3">Section {section}</h3>
-
-      <div className="w-full bg-gray-300 h-6 mb-6 rounded flex items-center justify-center text-sm text-gray-700 font-medium">
-        FIELD VIEW
+      <div className="w-[50%] mb-6 rounded flex items-center justify-center justify-self-center">
+        <img src={logo} alt="Logo" />
       </div>
 
+      <h3 className="text-center font-bold mb-3">Section {section}</h3>
       {sortedRows.map((row) => (
         <div key={row} className="flex items-center mb-2">
           <span className="w-8 text-xs font-medium text-gray-600">
             Row {row}
           </span>
-          <div className="flex-1 flex space-x-1 justify-center">
+          <div className="flex-1 flex space-x-1 justify-center -ml-6">
             {ticketsByRow[row]
               .sort((a, b) => parseInt(a.seat) - parseInt(b.seat))
               .map((ticket) => {

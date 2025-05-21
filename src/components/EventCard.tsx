@@ -24,8 +24,8 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
           alt={`${event.team} vs ${event.opponent}`}
           className="w-full h-full object-cover"
         />
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-          <h3 className="text-white font-bold">
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4 bg-black/50 inline px-2 py-1 rounded">
+          <h3 className="text-white font-bold text-shadow-lg drop-shadow-lg">
             {event.team} vs {event.opponent}
           </h3>
           <p className="text-white/90 text-sm">

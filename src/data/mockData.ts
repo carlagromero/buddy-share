@@ -9,7 +9,7 @@ export const mockEvents: Event[] = [
     time: "7:00 PM",
     venue: "Summa Pavilion",
     imageUrl:
-      "https://images.pexels.com/photos/39562/the-ball-stadion-football-the-pitch-39562.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Game_3_of_the_2006_NBA_Finals.jpg/1280px-Game_3_of_the_2006_NBA_Finals.jpg",
   },
   {
     id: "2",
@@ -19,7 +19,7 @@ export const mockEvents: Event[] = [
     time: "7:30 PM",
     venue: "Summa Pavilion",
     imageUrl:
-      "https://images.pexels.com/photos/114296/pexels-photo-114296.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Game_3_of_the_2006_NBA_Finals.jpg/1280px-Game_3_of_the_2006_NBA_Finals.jpg",
   },
   {
     id: "3",
@@ -29,7 +29,7 @@ export const mockEvents: Event[] = [
     time: "8:00 PM",
     venue: "Summa Pavilion",
     imageUrl:
-      "https://images.pexels.com/photos/270085/pexels-photo-270085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Game_3_of_the_2006_NBA_Finals.jpg/1280px-Game_3_of_the_2006_NBA_Finals.jpg",
   },
 ];
 
@@ -60,6 +60,7 @@ export const mockTickets: Ticket[] = [
     row: "11",
     seat: "6",
     isCombo: true,
+    comboSize: 3,
   },
   {
     id: "104",
@@ -68,6 +69,7 @@ export const mockTickets: Ticket[] = [
     row: "11",
     seat: "7",
     isCombo: true,
+    comboSize: 3,
   },
 
   // Lions vs Tigers
