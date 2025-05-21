@@ -67,7 +67,7 @@ const TicketItem: React.FC<TicketItemProps> = ({
               </button>
             )}
             <img
-              src={buddy.avatar || getAvatarSrc(buddy.name || '')}
+              src={buddy.avatar || getAvatarSrc(buddy.name)}
               alt={buddy.name}
               className="w-8 h-8 rounded-full mr-2"
             />
@@ -107,14 +107,16 @@ const TicketItem: React.FC<TicketItemProps> = ({
               />
             </svg>
           </div>
-          <span>Transfer entire season tickets</span>
+          <span>Send tickets for all events with this seat</span>
         </label>
       )}
 
       {!isEditable && isComboBoxSelected && (
-        <div className="mt-2 flex items-center gap-2 text-primary text-sm">
-          <AlertTriangle size={16} />{" "}
-          <span>You’re about to transfer all season tickets</span>
+        <div className="mt-2 flex items-center gap-1 text-primary text-sm">
+          <AlertTriangle size={14} />{" "}
+          <span className="text-xs">
+            You’re about to send tickets for all events with this seat
+          </span>
         </div>
       )}
     </div>

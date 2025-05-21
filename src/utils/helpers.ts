@@ -1,7 +1,7 @@
-export function getAvatarSrc(name: string): string {
+export function getAvatarSrc(name?: string): string {
   const baseUrl = "https://ui-avatars.com/api/";
   const params = new URLSearchParams({
-    name,
+    name: name ?? "Unknown",
     background: "2c3660",
     color: "ffffff",
     bold: "true",

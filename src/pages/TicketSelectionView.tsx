@@ -232,7 +232,7 @@ const TicketSelectionView: React.FC = () => {
 
                     {isGroupAssigned && (
                       <CheckCircle
-                        className="absolute top-2 right-2 text-blue-500"
+                        className="absolute top-2 right-2 text-blue-800"
                         size={18}
                       />
                     )}
@@ -282,9 +282,7 @@ const TicketSelectionView: React.FC = () => {
                           {assignedTicket.seat}
                         </p>
                       ) : (
-                        <p className="text-sm text-gray-500">
-                          {buddy.phone}
-                        </p>
+                        <p className="text-sm text-gray-500">{buddy.phone}</p>
                       )}
                     </div>
                   </button>

@@ -1,11 +1,11 @@
-import { faker } from '@faker-js/faker';
+import { faker } from "@faker-js/faker";
 
 import { Event, Ticket, Buddy, Group } from "../types";
 
 export const mockEvents: Event[] = [
   {
     id: "1",
-    team: "Pacioli - Lions",
+    team: "Lions",
     opponent: "Gophers",
     date: "2026-3-1",
     time: "7:00 PM",
@@ -15,7 +15,7 @@ export const mockEvents: Event[] = [
   },
   {
     id: "2",
-    team: "Pacioli - Lions",
+    team: "Lions",
     opponent: "Tigers",
     date: "2026-3-4",
     time: "7:30 PM",
@@ -25,7 +25,7 @@ export const mockEvents: Event[] = [
   },
   {
     id: "3",
-    team: "Pacioli - Lions",
+    team: "Lions",
     opponent: "Zebras",
     date: "2026-3-7",
     time: "8:00 PM",
@@ -49,6 +49,14 @@ export const mockTickets: Ticket[] = [
   {
     id: "102",
     eventId: "1",
+    section: "109",
+    row: "1",
+    seat: "2",
+    isCombo: false,
+  },
+  {
+    id: "103",
+    eventId: "1",
     section: "L118",
     row: "11",
     seat: "5",
@@ -56,7 +64,7 @@ export const mockTickets: Ticket[] = [
     comboSize: 3,
   },
   {
-    id: "103",
+    id: "104",
     eventId: "1",
     section: "L118",
     row: "11",
@@ -65,7 +73,7 @@ export const mockTickets: Ticket[] = [
     comboSize: 3,
   },
   {
-    id: "104",
+    id: "105",
     eventId: "1",
     section: "L118",
     row: "11",
@@ -131,71 +139,71 @@ export const mockTickets: Ticket[] = [
 
 export const mockBuddies: Buddy[] = [
   {
-    id: '1',
-    name: faker.person.firstName('male'),
-    phone: faker.phone.number({ style: 'national' }),
+    id: "1",
+    name: faker.person.firstName("male"),
+    phone: faker.phone.number({ style: "national" }),
     avatar: "https://randomuser.me/api/portraits/men/32.jpg",
     isActive: true,
   },
   {
     id: "2",
-    name: faker.person.firstName('female'),
-    phone: faker.phone.number({ style: 'national' }),
+    name: faker.person.firstName("female"),
+    phone: faker.phone.number({ style: "national" }),
     avatar: "https://randomuser.me/api/portraits/women/44.jpg",
     isActive: true,
   },
   {
     id: "3",
     // name: faker.person.firstName('male'),
-    phone: faker.phone.number({ style: 'national' }),
+    phone: faker.phone.number({ style: "national" }),
     avatar: "",
     isActive: true,
   },
   {
     id: "4",
-    name: faker.person.firstName('female'),
-    phone: faker.phone.number({ style: 'national' }),
+    name: faker.person.firstName("female"),
+    phone: faker.phone.number({ style: "national" }),
     avatar: "https://randomuser.me/api/portraits/women/23.jpg",
     isActive: false,
   },
   {
     id: "5",
     // name: faker.person.firstName('male'),
-    phone: faker.phone.number({ style: 'national' }),
+    phone: faker.phone.number({ style: "national" }),
     avatar: "",
     isActive: true,
   },
   {
     id: "6",
-    name: faker.person.firstName('male'),
-    phone: faker.phone.number({ style: 'national' }),
+    name: faker.person.firstName("male"),
+    phone: faker.phone.number({ style: "national" }),
     avatar: "https://randomuser.me/api/portraits/men/39.jpg",
     isActive: true,
   },
   {
     id: "7",
-    name: faker.person.firstName('male'),
-    phone: faker.phone.number({ style: 'national' }),
+    name: faker.person.firstName("male"),
+    phone: faker.phone.number({ style: "national" }),
     avatar: "https://randomuser.me/api/portraits/men/60.jpg",
     isActive: true,
   },
   {
     id: "8",
     // name: faker.person.firstName('male'),
-    phone: faker.phone.number({ style: 'national' }),
+    phone: faker.phone.number({ style: "national" }),
     avatar: "",
     isActive: true,
   },
   {
     id: "9",
-    name: faker.person.firstName('female'),
-    phone: faker.phone.number({ style: 'national' }),
+    name: faker.person.firstName("female"),
+    phone: faker.phone.number({ style: "national" }),
     avatar: "https://randomuser.me/api/portraits/women/1.jpg",
     isActive: true,
   },
   {
     id: "10",
-    phone: faker.phone.number({ style: 'national' }),
+    phone: faker.phone.number({ style: "national" }),
     avatar: "",
     isActive: false,
   },
@@ -209,7 +217,7 @@ export const mockGroups: Group[] = [
   },
   {
     id: "2",
-    name: "Friends",
+    name: "Weekend Warriors",
     buddies: ["5", "6", "7"],
   },
 ];
