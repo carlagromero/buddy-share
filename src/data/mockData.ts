@@ -218,7 +218,7 @@ export const mockGroups: Group[] = [
   {
     id: "2",
     name: "Weekend Warriors",
-    buddies: ["5", "6", "7"],
+    buddies: ["6", "7"],
   },
 ];
 
